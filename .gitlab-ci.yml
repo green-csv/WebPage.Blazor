@@ -3,32 +3,23 @@ image: mcr.microsoft.com/dotnet/sdk:8.0
 
 variables:
   PUBLISH_PATH: "public"
-
-stages:
-  - build
-
-build:
-  stage: build
+  
+pages:
+  stage: deploy
   script:
     - dotnet restore
     - dotnet build --no-restore
     - dotnet publish --no-restore -c Release -o $PUBLISH_PATH
+    # Ensure the wwwroot folder is copied to the public directory
+    - cp -r $PUBLISH_PATH/wwwroot/* $PUBLISH_PATH/
+    # Create .nojekyll file to disable Jekyll processing
+    - touch $PUBLISH_PATH/.nojekyll
   artifacts:
     paths:
       - public
-    expire_in: 1 week
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
       - .nuget/packages
-
-deploy:
-  stage: deploy
-  script:
-    - cp -r $PUBLISH_PATH public
-    - touch public/.nojekyll  # Disable Jekyll processing for GitLab Pages
-  artifacts:
-    paths:
-      - public
   only:
-    - main  # Change this to your deployment branch if needed
+    - main    # or your default branch name
