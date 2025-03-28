@@ -21,3 +21,14 @@ build:
     key: ${CI_COMMIT_REF_SLUG}
     paths:
       - .nuget/packages
+
+deploy:
+  stage: deploy
+  script:
+    - cp -r $PUBLISH_PATH public
+    - touch public/.nojekyll  # Disable Jekyll processing for GitLab Pages
+  artifacts:
+    paths:
+      - public
+  only:
+    - main  # Change this to your deployment branch if needed
