@@ -11,8 +11,8 @@
     <Content Include="wwwrootsrc\scss\app.scss" />
     <Content Include="wwwrootsrc\assets\cicada.png" />
     <Content Include="wwwrootsrc\js\crt-static-canvas.js" />
-    <Content Include="wwwrootsrc\scss\_crt-tv.scss" />
-    <Content Include="wwwrootsrc\scss\_variables.scss" />
+    <Content Include="wwwrootsrc\scss\crt-tv.scss" />
+    <Content Include="wwwrootsrc\scss\variables.scss" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,5 +26,13 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\.idea\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
   </ItemGroup>
 </Project>

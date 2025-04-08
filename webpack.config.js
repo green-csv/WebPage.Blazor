@@ -11,12 +11,19 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s$css$/,
+                test: /\.s[ac]ss$/i,
                 exclude: /node_modules/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sassOptions: {
+                                includePaths: ['./wwwrootsrc/scss']
+                            }
+                        }
+                    },
                     {
                         loader: 'postcss-loader',
                         options: {

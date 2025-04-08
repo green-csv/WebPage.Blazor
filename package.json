@@ -2,11 +2,12 @@
   "scripts": {
     "build": "webpack --mode development",
     "watch": "webpack  --mode development --watch",
+    "watch:tailwind": "npx @tailwindcss/cli -i ./wwwrootsrc/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
     "watch:production": "webpack  --mode production --watch"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.3",
-    "@tailwindcss/postcss": "^4.1.3",    
+    "@tailwindcss/postcss": "^4.1.3",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
     "mini-css-extract-plugin": "^2.9.2",

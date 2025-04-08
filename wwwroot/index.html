@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GreenCSV</title>
   <base href="/" />
+  <link rel="stylesheet" href="css/tailwind.css" />
   <link rel="stylesheet" href="css/app.css" />
   <link rel="icon" type="image/png" href="favicon.png" />
   <link href="WebPage.Blazor.styles.css" rel="stylesheet" />
@@ -16,35 +17,55 @@
 </head>
 
 <body>
-  <div class="crt-tv flicker">
+<div class="crt-tv flicker ">
+  <canvas id="tv-static-canvas"></canvas>
 
-    <canvas id="tv-static-canvas"></canvas>
+  <!-- Entire screen container -->
+  <div class="crt-screen border-4 border-black">
 
-    <div class="crt-screen">
+    <!-- Main Blazor mount point -->
+    <main id="app" class="text-shadow-terminal-teal text-lime-600 w-full">
 
-      <div id="app">
-        <svg class="loading-progress">
-          <circle r="40%" cx="50%" cy="50%" />
-          <circle r="40%" cx="50%" cy="50%" />
-        </svg>
+      <div id="boot-screen" 
+           class="fixed inset-0 flex flex-col items-center justify-center text-lime-400 font-mono text-2xl">
+        <div class="loading-progress-text">Booting...</div>
+      </div>
+      
+      <div id="boot-lines" class="hidden font-mono text-lime-400 text-lg mt-4">
+        <div class="boot-line" data-line="> INITIALIZING SYSTEM CORE"></div>
+        <div class="boot-line" data-line="> BOOTING CRT RENDER ENGINE"></div>
+        <div class="boot-line" data-line="> LOADING GREEN.LIME MODULE"></div>
+        <div class="boot-line" data-line="> ESTABLISHING GLOW LINK..."></div>
+      </div>
+      
+      <!-- Bottom error UI -->
+      <div id="blazor-error-ui"
+           class="flex justify-center">
 
-        <div class="loading-progress-text"></div>
+        <div class="flex items-center absolute bottom-0  text-white">
+        <span class="crt-wiggle text-6xl text-lime-400">
+                [
+        </span>
+          <div class="crt-wiggle py-6">
+            An unhandled error has occurred.
+            <a href="" class="ml-2 underline hover:text-lime-400">Reload</a>
+            <a class="dismiss cursor-pointer hover:text-lime-400 text-lime-500">🗙</a>
+          </div>
+          <span class="crt-wiggle text-6xl text-lime-400">
+            ]
+        </span>
+        </div>
+
       </div>
 
-      <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-      </div>
-
-    </div>
-
+    </main>
   </div>
+</div>
 
-
-  <script src="_framework/blazor.webassembly.js"></script>
-  <script src="dist/bundle.js"></script>
-  <script>navigator.serviceWorker.register('service-worker.js');</script>
+<!-- Scripts -->
+<script src="_framework/blazor.webassembly.js"></script>
+<script src="dist/bundle.js"></script>
+<script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 
 </html>

@@ -1,3 +1,53 @@
 ﻿@page "/"
-
+@inherits BootInteropComponentBase
 <PageTitle>Home</PageTitle>
+
+<div class="flex gap-4 mb-4">
+    <button class="@GetTabClass("projects")" @onclick="@(() => SelectTab("projects"))">
+        <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
+            [
+        </span>
+        Projects
+        <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
+            ]
+        </span>
+
+    </button>
+    <button class="@GetTabClass("contact")" @onclick="@(() => SelectTab("contact"))">
+        <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">
+                [
+        </span>
+        Contact
+        <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
+                ]
+        </span>
+    </button>
+</div>
+<hr class="shadow-md my-4 h-[3px] bg-teal-400 rounded shadow-teal-200" />
+<div class="px-4 font-mono text-lime-300 text-sm">
+    @if (ActiveTab == "projects")
+    {
+        <p>> Displaying PROJECTS screen...</p>
+        <!-- Inject projects content here -->
+    }
+    else if (ActiveTab == "contact")
+    {
+        <p>> Displaying CONTACT screen...</p>
+        <!-- Inject contact content here -->
+    }
+</div>
+
+@code {
+    private string ActiveTab = "projects";
+
+    private void SelectTab(string tab)
+    {
+        ActiveTab = tab;
+    }
+
+    private string GetTabClass(string tab) =>
+        $"px-4 py-2 font-mono text-sm transition-all duration-200" +
+        (ActiveTab == tab
+            ? " bg-teal-600 text-teal-900 shadow-md"
+            : " text-lime-300 hover:bg-teal-600 text-shadow-terminal-teal");
+}

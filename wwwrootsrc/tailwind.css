@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+@theme {
+    --font-sans: 'Courier New', monospace;
+    --font-serif: 'Courier New', monospace;
+
+    --text-shadow-terminal: 
+            0 0 5px var(--color-lime-400),
+            0 0 10px var(--color-lime-400),
+            0 0 20px var(--color-lime-500);
+
+    --text-shadow-terminal-teal: 
+            0 0 5px var(--color-teal-300),
+            0 0 10px var(--color-teal-300),
+            0 0 20px var(--color-teal-600);
+}
