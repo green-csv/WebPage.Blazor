@@ -25,12 +25,12 @@
 </div>
 <hr class="shadow-md my-4 h-[3px] bg-teal-400 rounded shadow-teal-200" />
 <div class="px-4 font-mono text-lime-300 text-sm">
-    @if (ActiveTab == "projects")
+    @if (_activeTab == "projects")
     {
         <p>> Displaying PROJECTS screen...</p>
         <!-- Inject projects content here -->
     }
-    else if (ActiveTab == "contact")
+    else if (_activeTab == "contact")
     {
         <p>> Displaying CONTACT screen...</p>
         <!-- Inject contact content here -->
@@ -38,16 +38,16 @@
 </div>
 
 @code {
-    private string ActiveTab = "projects";
+    private string _activeTab = "projects";
 
     private void SelectTab(string tab)
     {
-        ActiveTab = tab;
+        _activeTab = tab;
     }
 
     private string GetTabClass(string tab) =>
         $"px-4 py-2 font-mono text-sm transition-all duration-200" +
-        (ActiveTab == tab
-            ? " bg-teal-600 text-teal-900 shadow-md"
+        (_activeTab == tab
+            ? " bg-teal-600 text-teal-900 text-shadow-terminal-teal-darker"
             : " text-lime-300 hover:bg-teal-600 text-shadow-terminal-teal");
 }
