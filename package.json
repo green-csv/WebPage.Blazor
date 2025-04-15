@@ -2,7 +2,7 @@
   "scripts": {
     "build": "webpack --mode development",
     "watch": "webpack  --mode development --watch",
-    "watch:tailwind": "npx @tailwindcss/cli -i ./wwwrootsrc/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
+    "watch:tailwind": "npx @tailwindcss/cli -i ./App/wwwroot/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
     "watch:production": "webpack  --mode production --watch"
   },
   "devDependencies": {
@@ -10,6 +10,7 @@
     "@tailwindcss/postcss": "^4.1.3",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",
+    "image-webpack-loader": "^8.1.0",
     "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",

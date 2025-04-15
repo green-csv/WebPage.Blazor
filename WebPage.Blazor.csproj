@@ -8,14 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwrootsrc\scss\app.scss" />
-    <Content Include="wwwrootsrc\assets\cicada.png" />
-    <Content Include="wwwrootsrc\js\crt-static-canvas.js" />
-    <Content Include="wwwrootsrc\scss\crt-tv.scss" />
-    <Content Include="wwwrootsrc\scss\variables.scss" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.14" PrivateAssets="all" />
   </ItemGroup>
@@ -25,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Components\Blog\" />
     <Folder Include="wwwroot\.idea\" />
   </ItemGroup>
 

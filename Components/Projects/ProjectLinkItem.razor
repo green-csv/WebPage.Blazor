@@ -1,0 +1,7 @@
+﻿
+
+@code {
+    [Parameter] public string Label { get; set; } = string.Empty;
+    [Parameter] public string Url { get; set; } = "#";
+    [Parameter] public required RenderFragment ChildContent { get; set; }
+}

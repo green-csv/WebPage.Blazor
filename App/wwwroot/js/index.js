@@ -1,5 +1,5 @@
-﻿
-import '../scss/app.scss';
+﻿import '../scss/app.scss';
+import '../assets/icon-c3ref.jpg'
 
 import { initCRTStatic } from './crt-static-canvas.js';
 import { startBootSequence } from './boot-sequence.js';

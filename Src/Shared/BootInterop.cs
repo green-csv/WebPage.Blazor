@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace WebPage.Blazor;
+namespace WebPage.Blazor.Src.Shared;
 
 public abstract class BootInteropBase : ComponentBase
 {

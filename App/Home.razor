@@ -1,4 +1,5 @@
 ﻿@page "/"
+
 @inherits BootInteropComponentBase
 <PageTitle>Home</PageTitle>
 
@@ -15,25 +16,28 @@
     </button>
     <button class="@GetTabClass("contact")" @onclick="@(() => SelectTab("contact"))">
         <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">
-                [
+            [
         </span>
         Contact
         <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
-                ]
+            ]
         </span>
     </button>
 </div>
+
 <hr class="shadow-md my-4 h-[3px] bg-teal-400 rounded shadow-teal-200" />
-<div class="px-4 font-mono text-lime-300 text-sm">
-    @if (_activeTab == "projects")
+
+<div class="font-mono text-lime-300">
+    @switch (_activeTab)
     {
-        <p>> Displaying PROJECTS screen...</p>
-        <!-- Inject projects content here -->
-    }
-    else if (_activeTab == "contact")
-    {
-        <p>> Displaying CONTACT screen...</p>
-        <!-- Inject contact content here -->
+        case "projects":
+            <ProjectsScreen/>
+            
+            break;
+        case "entries":
+            <p>> Displaying Entries screen...</p>
+            
+            break;
     }
 </div>
 
@@ -46,8 +50,8 @@
     }
 
     private string GetTabClass(string tab) =>
-        $"px-4 py-2 font-mono text-sm transition-all duration-200" +
+        $"px-4 py-2 font-mono transition-all duration-200" +
         (_activeTab == tab
-            ? " bg-teal-600 text-teal-900 text-shadow-terminal-teal-darker"
+            ? " bg-teal-600 text-teal-950 text-shadow-terminal-teal-darker"
             : " text-lime-300 hover:bg-teal-600 text-shadow-terminal-teal");
 }

@@ -1,0 +1,101 @@
+﻿@{
+    foreach (var project in _projects)
+    {
+        <div
+            class="group flex flex-col sm:flex-row gap-4 p-4 rounded-md hover:bg-black/40 
+            hover:text-shadow-terminal-teal transition-all duration-200">
+
+
+            <div
+                class="flex justify-end sm:items-center sm:justify-center sm:w-48 sm:h-32 w-full h-24 rounded-sm overflow-hidden">
+                <img src="@project.ImagePath"
+                     alt="Preview"
+                     class=" w-auto h-full object-cover opacity-70 
+                group-hover:bg-indigo-500/75
+              filter grayscale brightness-75 
+              group-hover:filter-none group-hover:brightness-100 group-hover:opacity-100 
+              transition-all duration-500 ease-in-out"/>
+            </div>
+
+            <div class="flex flex-1 flex-col relative">
+                <!-- text, metadata, links, tags -->
+                <h2 class="uppercase font-bold">>_ @project.Id</h2>
+
+                <div class="pt-1 font-semibold">@project.Name</div>
+                <div>@project.Description</div>
+
+                <div class="pt-2 text-teal-300">
+                    Created: @project.CreatedAt.ToShortDateString()
+                    | Status: @project.Status
+                </div>
+
+                <!-- Tags -->
+                <div class="pt-1 flex flex-wrap gap-2">
+                    @foreach (var tag in project.Tags)
+                    {
+                        <div class="px-2 py-0.5 bg-teal-800/40 text-lime-300 rounded-sm tracking-wider">
+                            [ @tag ]
+                        </div>
+                    }
+                </div>
+
+                <!-- 🔗 Flexible marketplace/web links -->
+                <div class="pt-3 flex flex-wrap gap-4">
+                    @foreach (var link in project.Links)
+                    {
+                        <a href="@link.Url"
+                           target="_blank"
+                           class="flex bg-indigo-700 text-lime-200 px-3 py-1 rounded-sm hover:bg-indigo-500 transition-colors duration-200 items-center gap-2">
+                            <span class="flex items-center gap-1">[@link.Icon]</span>
+
+                            @link.Label
+                        </a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    }
+}
+
+@code {
+
+    List<ProjectModel> _projects =
+    [
+        new()
+        {
+            ImagePath = "https://raw.githubusercontent.com/green-csv/img-contextual/master/images/encoder.png",
+            Name = "Image To Base64 clipboard",
+            Description = "Adds to contextual menu encode to base 64 and set into the clipboard",
+            CreatedAt = new DateTime(year: 2021, month: 4, day: 18),
+            Status = EnumStatusProjects.Active,
+            Links =
+            [
+                new ProjectLink
+                {
+                    Label = "Marketplace",
+                    Url = "https://marketplace.visualstudio.com/items?itemName=green-csv.img-contextual",
+                    Icon = GreenIcons.Arrow
+                },
+                new ProjectLink
+                {
+                    Label = "Github",
+                    Url = "https://github.com/green-csv/img-contextual",
+                    Icon = GreenIcons.Arrow
+                }
+            ],
+            Tags = ["Base64", "Utilities", "VsCode-Extension"]
+        },
+        new()
+        {
+            ImagePath = "/dist/assets/icon-c3ref.jpg",
+            Name = "c3ref",
+            Description = "Aplicación colombiana desarrollada por la Asociación Colegio Colombiano de Endocrinología Pediátrica (ACCEP) para el cálculo y visualización gráfica de los Z score, para niños y jóvenes en las curvas colombianas de referencia en talla, peso e IMC.",
+            CreatedAt = new DateTime(2020, 10, 20),
+            Status = EnumStatusProjects.Active,
+            Links = [new ProjectLink { Label = "iOS", Url = "https://apps.apple.com/app/id1534245375", Icon = GreenIcons.Apple }],
+            Tags = ["Pediatric", "Health", "Z-Score", "Colombia", "iOS", "Medical"]
+        }
+    ];
+
+}

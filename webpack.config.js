@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-    entry: './wwwrootsrc/js/index.js',
+    entry: './App/wwwroot/js/index.js',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'wwwroot/dist'),
@@ -20,7 +20,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             sassOptions: {
-                                includePaths: ['./wwwrootsrc/scss']
+                                includePaths: ['./App/wwwroot/scss']
                             }
                         }
                     },
@@ -32,6 +32,26 @@ module.exports = {
                                     require('@tailwindcss/postcss'),
                                 ]
                             }
+                        }
+                    }
+                ]
+            },
+            {
+                test: /\.(png|jpe?g|jpg|gif|svg|webp)$/i,
+                include: path.resolve(__dirname, 'App/wwwroot/assets'),
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/[name][ext]'
+                },
+                use: [
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            mozjpeg: { progressive: true, quality: 75 },
+                            optipng: { enabled: true },
+                            pngquant: { quality: [0.65, 0.9], speed: 4 },
+                            gifsicle: { interlaced: false },
+                            webp: { quality: 75 }
                         }
                     }
                 ]
