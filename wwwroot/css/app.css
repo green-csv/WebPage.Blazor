@@ -9,8 +9,7 @@ body {
 .crt-tv {
   position: fixed;
   width: 100vw;
-  height: 100vh;
-  overflow: hidden;
+  height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -57,7 +56,7 @@ body {
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.2;
+  opacity: 0.1;
   z-index: 1;
   pointer-events: none;
 }
