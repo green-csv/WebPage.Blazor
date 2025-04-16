@@ -3,42 +3,38 @@
 @inherits BootInteropComponentBase
 <PageTitle>Home</PageTitle>
 
-<div class="flex gap-4 mb-4">
-    <button class="@GetTabClass("projects")" @onclick="@(() => SelectTab("projects"))">
-        <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
-            [
-        </span>
-        Projects
-        <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
-            ]
-        </span>
+<div class="flex flex-col h-full">
 
-    </button>
-    <button class="@GetTabClass("entries")" @onclick="@(() => SelectTab("entries"))">
-        <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">
-            [
-        </span>
-        Entries
-        <span class="crt-wiggle  text-lime-400 text-shadow-terminal-teal">
-            ]
-        </span>
-    </button>
-</div>
+    <!-- Tabs (NOT scrolling) -->
+    <div class="gap-4 mb-4">
+        <button class="@GetTabClass("projects")" @onclick="@(() => SelectTab("projects"))">
+            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">[</span>
+            Projects
+            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">]</span>
+        </button>
+        <button class="@GetTabClass("entries")" @onclick="@(() => SelectTab("entries"))">
+            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">[</span>
+            Entries
+            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">]</span>
+        </button>
+    </div>
 
-<hr class="shadow-md my-4 h-[3px] bg-teal-400 rounded shadow-teal-200" />
+    <!-- Divider -->
+    <hr class="shadow-md mb-2 h-[3px] bg-teal-400 rounded shadow-teal-200" />
 
-<div class="font-mono text-lime-300">
-    @switch (_activeTab)
-    {
-        case "projects":
-            <ProjectsScreen/>
-            
-            break;
-        case "entries":
-            <p>> Displaying Entries screen...</p>
-            
-            break;
-    }
+    <!-- Scrollable Tab Content -->
+    <div class="flex-1 overflow-y-auto font-mono text-lime-300">
+        @switch (_activeTab)
+        {
+            case "projects":
+                <ProjectsScreen />
+                break;
+            case "entries":
+                <p>> Displaying Entries screen...</p>
+                break;
+        }
+    </div>
+
 </div>
 
 @code {
