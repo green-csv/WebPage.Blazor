@@ -2,10 +2,6 @@
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[3]!./App/wwwroot/scss/app.scss ***!
   \**********************************************************************************************************************************************************************************************************************/
 @charset "UTF-8";
-body {
-  background-color: #7A728D;
-}
-
 .crt-tv {
   position: fixed;
   width: 100vw;
@@ -73,21 +69,10 @@ body {
   z-index: 2;
 }
 
-.crt-wiggle {
-  animation: crt-wiggle 0.4s infinite;
+.crt-static {
+  animation: none !important;
 }
 
-@keyframes crt-wiggle {
-  0%, 100% {
-    transform: skewX(0);
-  }
-  25% {
-    transform: skewX(0.35deg);
-  }
-  75% {
-    transform: skewX(-0.35deg);
-  }
-}
 .boot-line {
   animation: cascadeLine 0.01s ease forwards;
   animation-fill-mode: forwards;
@@ -96,13 +81,5 @@ body {
 @keyframes cascadeLine {
   to {
     opacity: 1;
-  }
-}
-@keyframes typeLine {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
   }
 }
