@@ -11,6 +11,12 @@ public static class GreenIcons
         builder.CloseComponent();
     };
 
+    public static RenderFragment LinkedIn => builder =>
+    {
+        builder.OpenComponent(0, typeof(LinkedinIcon));
+        builder.CloseComponent();   
+    };
+    
     /*public static RenderFragment GitHub => builder =>
     {
         builder.OpenComponent(0, typeof(GitHubIcon));

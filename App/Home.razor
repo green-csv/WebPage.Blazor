@@ -3,51 +3,69 @@
 @inherits BootInteropComponentBase
 <PageTitle>Home</PageTitle>
 
-<div class="flex flex-col h-full">
+<div
+  data-monday="Built by a human. Roasted and improved by Monday, the AI who never asked for this job."
+  class="ttext-2xl bg-teal-300 text-teal-950 container mx-auto flex-none mb-4 shadow shadow-teal-200 border border-teal-300 py-5 px-4">
+  >_ Hello, I’m a .NET Contractor
+  <p title="Trust me — I know what I’m doing.">
+    Available for .NET contract work
+  </p>
+</div>
 
-    <!-- Tabs (NOT scrolling) -->
-    <div class="gap-4 m-4">
-        <button class="@GetTabClass("projects")" @onclick="@(() => SelectTab("projects"))">
-            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">[</span>
-            Projects
-            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">]</span>
-        </button>
-        <button class="@GetTabClass("entries")" @onclick="@(() => SelectTab("entries"))">
-            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">[</span>
-            Entries
-            <span class="crt-wiggle text-lime-400 text-shadow-terminal-teal">]</span>
-        </button>
-    </div>
 
-    <!-- Divider -->
-    <hr class="shadow-md mb-2 mx-4 h-[3px] bg-teal-400 rounded shadow-teal-200" />
 
-    <!-- Scrollable Tab Content -->
-    <div class="flex-1 overflow-y-auto font-mono text-lime-300">
-        @switch (_activeTab)
-        {
-            case "projects":
-                <ProjectsScreen />
-                break;
-            case "entries":
-                <p>> Displaying Entries screen...</p>
-                break;
-        }
-    </div>
+
+<!-- Tabs (static) -->
+<div class="container mx-auto flex-none gap-4 mb-4 mt-0">
+  <button
+    class="border border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Projects)"
+    @onclick="@(() => SelectTab(EnumTabs.Projects))">
+    <p class="text-shadow text-shadow-teal-400">Projects</p>
+  </button>
+  <button
+    class="border border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Entries)"
+    @onclick="@(() => SelectTab(EnumTabs.Entries))">
+    <p class="text-shadow text-shadow-teal-400">Entries</p>
+  </button>
+</div>
+
+<!-- Fixed Page Layout -->
+<div class="container mx-auto flex grow mb-4 h-full shadow shadow-teal-200 border border-teal-300 overflow-y-auto">
+
+  @switch (_activeTab)
+  {
+    case EnumTabs.Projects:
+      <ProjectsScreen />
+      break;
+
+    case EnumTabs.Entries:
+      <p class="p-4">> Well well still under construction, but soon ...</p>
+      break;
+
+    default:
+      <text>...</text>
+      break;
+  }
 
 </div>
 
 @code {
-    private string _activeTab = "projects";
 
-    private void SelectTab(string tab)
+    private EnumTabs _activeTab = EnumTabs.Projects;
+
+    private void SelectTab(EnumTabs tab)
     {
         _activeTab = tab;
     }
 
-    private string GetTabClass(string tab) =>
-        $"px-4 py-2 font-mono transition-all duration-200" +
-        (_activeTab == tab
-            ? " bg-teal-600 text-teal-950 text-shadow-terminal-teal-darker"
-            : " text-lime-300 hover:bg-teal-600 text-shadow-terminal-teal");
+    private string GetTabClass(EnumTabs tab) =>
+        _activeTab == tab
+            ? " tab-active bg-teal-300 text-teal-950 shadow shadow-teal-200"
+            : " tab-inactive text-teal-300 hover:bg-teal-500";
+
+    private enum EnumTabs
+    {
+        Projects,
+        Entries
+    }
 }

@@ -3,10 +3,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
-    entry: './App/wwwroot/js/index.js',
+    entry: './App/wwwroot/index.js',
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'wwwroot/dist'),
+        path: path.resolve(__dirname, 'wwwroot'),
     },
     module: {
         rules: [
@@ -20,7 +20,7 @@ module.exports = {
                         loader: 'sass-loader',
                         options: {
                             sassOptions: {
-                                includePaths: ['./App/wwwroot/scss']
+                                includePaths: ['./App/wwwroot/scss', './App/wwwroot']
                             }
                         }
                     },
@@ -55,6 +55,14 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.(ttf|woff2?|otf|eot)$/i,
+                include: path.resolve(__dirname, 'App/wwwroot/assets/Fonts'),
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/fonts/[name][ext]' // Output path inside /wwwroot/dist
+                }
             }
         ]
     },
@@ -65,7 +73,7 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: '../css/app.css' // ⬅️ Final CSS output location
+            filename: 'app.css' // ⬅️ Final CSS output location
         })
     ]
 };

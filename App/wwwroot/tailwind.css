@@ -1,21 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-    --font-sans: 'Courier New', monospace;
-    --font-serif: 'Courier New', monospace;
-
-    --text-shadow-terminal: 
-            0 0 5px var(--color-lime-400),
-            0 0 10px var(--color-lime-400),
-            0 0 20px var(--color-lime-500);
-
-    --text-shadow-terminal-teal-darker:
-            0 0 2px var(--color-teal-500),
-            0 0 4px var(--color-teal-500),
-            0 0 20px var(--color-teal-600);
+    --font-mono: "IBM Plex Mono", monospace;
+    
     
     --text-shadow-terminal-teal: 
-            0 0 5px var(--color-teal-300),
-            0 0 10px var(--color-teal-300),
-            0 0 20px var(--color-teal-600);
+            0 0 1px var(--color-teal-500),
+            0 0 2px var(--color-teal-500),
+            0 0 8px var(--color-teal-700);
 }

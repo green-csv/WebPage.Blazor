@@ -28,4 +28,9 @@
   <ItemGroup>
     <None Include="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
   </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\dist\assets\icon-c3ref.jpg" />
+    <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js" />
+  </ItemGroup>
 </Project>

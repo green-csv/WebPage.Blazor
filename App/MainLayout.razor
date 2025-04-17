@@ -1,16 +1,29 @@
 ﻿@inherits BootInteropLayoutBase
 
-<div class="h-full flex flex-col container mx-auto p-0.5 shadow-lg shadow-teal-200 border-2 border-teal-500">
 
-    <header class="pl-4 bg-gradient-to-r w-full from-teal-400 via-teal-300 to-teal-400 text-3xl font-bold text-black 
-    shadow shadow-teal-200 opacity-70">
-        <h1 class="crt-wiggle text-shadow-terminal-teal boot-line text-teal-900" data-line="GREEN.CSV [v0.01]">
-            GREEN.CSV [v0.01]
-        </h1>
-    </header>
+<!-- Header -->
+<header class="container mx-auto text-4xl mt-2 flex-none">
+  <h1 class="boot-line text-teal-300" data-line="GREEN.CSV [v0.01]">
+    GREEN.CSV [v0.01]
+  </h1>
+</header>
 
-    <main class="flex-1 overflow-y-auto space-y-2">
-        @Body
-    </main>
+<hr class="bg-teal-500 border flex-none h-[2px] my-4 shadow-md" />
 
-</div>
+<main class="flex flex-col grow overflow-y-auto">
+  @Body
+</main>
+
+<!-- Footer -->
+<footer class="bg-sky-950 flex-none">
+
+  <div class="container mx-auto">
+    <a href="https://www.linkedin.com/in/anzvy/"
+       target="_blank"
+       class="text-lg py-2 flex rounded-sm transition-colors duration-200 items-center text-sky-100 gap-2">
+      <span class="flex items-center gap-1">[>_@GreenIcons.LinkedIn]</span>
+      LinkedIn
+    </a>
+  </div>
+
+</footer>
