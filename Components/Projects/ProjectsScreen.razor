@@ -1,5 +1,5 @@
 ﻿@{
-  <div class="flex flex-col gap-4 md:px-8 px-2">
+  <div class="flex flex-col gap-4 md:px-8 px-2 pt-4">
   @for (var i = 0; i < _projects.Count; i++)
   {
     var project = _projects[i];
@@ -97,7 +97,7 @@
       CreatedAt = new DateTime(2020, 10, 20),
       Status = EnumStatusProjects.Active,
       Links = [new ProjectLink { Label = "AppStore", Url = "https://apps.apple.com/app/id1534245375", Icon = GreenIcons.Apple }],
-      Tags = ["Pediatric", "Health", "Z-Score", "Colombia", "iOS", "Medical"]
+      Tags = ["Pediatric", "Health", "Colombia", "iOS", "Medical"]
     }
   ];
 

@@ -3,17 +3,29 @@
 @inherits BootInteropComponentBase
 <PageTitle>Home</PageTitle>
 
-<div
-  data-monday="Built by a human. Roasted and improved by Monday, the AI who never asked for this job."
-  class="ttext-2xl bg-teal-300 text-teal-950 container mx-auto flex-none mb-4 shadow shadow-teal-200 border border-teal-300 py-5 px-4">
-  >_ Hello, I’m a .NET Contractor
-  <p title="Trust me — I know what I’m doing.">
-    Available for .NET contract work
-  </p>
-</div>
-
-
-
+@if (_showBanner)
+{
+  <div
+    data-monday="Built by a human. Roasted and improved by Monday, the AI who never asked for this job."
+    class="text-lg container mx-auto flex-none mb-4 py-0 px-4 relative"
+  >
+    <button
+      @onclick="() => _showBanner = false"
+      class="absolute top-1 right-1 text-teal-600 hover:text-teal-200 font-bold text-lg"
+      title="Dismiss"
+    >
+      [x]
+    </button>
+    <a
+      href="https://www.linkedin.com/in/anzvy/"
+      target="_blank">
+      >_ Hello, I’m a .NET Contractor
+      <p title="Trust me — I know what I’m doing.">
+        Available for .NET contract work
+      </p>
+    </a>
+  </div>
+}
 
 <!-- Tabs (static) -->
 <div class="container mx-auto flex-none gap-4 mb-4 mt-0">
@@ -51,6 +63,7 @@
 
 @code {
 
+    private bool _showBanner = true;
     private EnumTabs _activeTab = EnumTabs.Projects;
 
     private void SelectTab(EnumTabs tab)
