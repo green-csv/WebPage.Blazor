@@ -1,5 +1,7 @@
-﻿@use "./scss/crt-tv";
-@use "./scss/variables";
+﻿@import "tailwindcss";
+
+@import "./css/crt-tv.css";
+
 
 /* IBM Plex Mono Font Family — Full Weights + Italics */
 

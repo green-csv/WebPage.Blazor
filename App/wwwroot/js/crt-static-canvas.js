@@ -1,5 +1,8 @@
 export function initCRTStatic(canvasId = 'tv-static-canvas') {
     const canvas = document.getElementById(canvasId);
+    
+    if (!canvas || canvas.offsetParent === null) return;
+    
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {

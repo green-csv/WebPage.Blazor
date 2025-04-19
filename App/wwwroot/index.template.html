@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>GreenCSV</title>
     <base href="/"/>
-    <link rel="stylesheet" href="css/tailwind.css"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <link href="WebPage.Blazor.styles.css" rel="stylesheet"/>
-    <link href="manifest.webmanifest" rel="manifest"/>
     <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png"/>
     <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png"/>
     <meta name="description" content=".Net Contractor | Consultant">
@@ -124,8 +122,9 @@
 
 <div class="crt-tv flicker">
 
-    <canvas id="tv-static-canvas"></canvas>
-
+    <!-- CRT visual static: only visible on medium+ screens -->
+    <canvas id="tv-static-canvas" class="hidden sm:block"></canvas>
+    
     <!-- Entire screen container -->
     <div class="crt-screen overflow-y-hidden">
 
@@ -148,17 +147,13 @@
             <div id="blazor-error-ui" class="flex justify-center">
 
                 <div class="flex items-center absolute bottom-0  text-white">
-        <span class="text-5xl ">
-                [
-        </span>
-                    <div class="py-6">
-                        An unhandled error has occurred.
-                        <a href="" class="ml-2 underline hover:text-teal-300">Reload</a>
-                        <a class="dismiss cursor-pointer hover:text-teal-300 text-teal-500">🗙</a>
-                    </div>
-                    <span class="text-5xl">
-            ]
-        </span>
+                    <span class="text-5xl">[</span>
+                        <div class="py-6">
+                            An unhandled error has occurred.
+                            <a href="" class="ml-2 underline hover:text-teal-300">Reload</a>
+                            <a class="dismiss cursor-pointer hover:text-teal-300 text-teal-500">🗙</a>
+                        </div>
+                    <span class="text-5xl">]</span>
                 </div>
 
             </div>
@@ -169,7 +164,6 @@
 
 <!-- Scripts -->
 <script src="_framework/blazor.webassembly.js"></script>
-<script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 
 </html>

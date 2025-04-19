@@ -1,11 +1,15 @@
-/*! tailwindcss v4.1.3 | MIT License | https://tailwindcss.com */
+/*!*****************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/postcss-loader/dist/cjs.js!./App/wwwroot/app.css ***!
+  \*****************************************************************************************************************/
+/*! tailwindcss v4.1.4 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
     --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --font-mono: "IBM Plex Mono", monospace;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
     --color-teal-200: oklch(91% 0.096 180.426);
     --color-teal-300: oklch(85.5% 0.138 181.071);
     --color-teal-400: oklch(77.7% 0.152 181.912);
@@ -187,6 +191,9 @@
   }
 }
 @layer utilities {
+  .visible {
+    visibility: visible;
+  }
   .absolute {
     position: absolute;
   }
@@ -329,6 +336,10 @@
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+  .border-x {
+    border-inline-style: var(--tw-border-style);
+    border-inline-width: 1px;
   }
   .border-b {
     border-bottom-style: var(--tw-border-style);
@@ -518,9 +529,6 @@
       --tw-text-shadow-color: color-mix(in oklab, var(--color-teal-400) var(--tw-text-shadow-alpha), transparent);
     }
   }
-  .text-shadow-terminal-teal {
-    text-shadow: 0 0 1px var(--tw-text-shadow-color, var(--color-teal-500)), 0 0 2px var(--tw-text-shadow-color, var(--color-teal-500)), 0 0 8px var(--tw-text-shadow-color, var(--color-teal-700));
-  }
   .group-hover\:bg-cyan-900 {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -588,11 +596,9 @@
       }
     }
   }
-  .hover\:text-shadow-terminal-teal {
-    &:hover {
-      @media (hover: hover) {
-        text-shadow: 0 0 1px var(--tw-text-shadow-color, var(--color-teal-500)), 0 0 2px var(--tw-text-shadow-color, var(--color-teal-500)), 0 0 8px var(--tw-text-shadow-color, var(--color-teal-700));
-      }
+  .sm\:block {
+    @media (width >= 40rem) {
+      display: block;
     }
   }
   .sm\:h-32 {
@@ -620,11 +626,239 @@
       justify-content: center;
     }
   }
+  .md\:border {
+    @media (width >= 48rem) {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+  }
   .md\:px-8 {
     @media (width >= 48rem) {
       padding-inline: calc(var(--spacing) * 8);
     }
   }
+  .md\:shadow {
+    @media (width >= 48rem) {
+      --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+  .md\:shadow-teal-200 {
+    @media (width >= 48rem) {
+      --tw-shadow-color: oklch(91% 0.096 180.426);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-shadow-color: color-mix(in oklab, var(--color-teal-200) var(--tw-shadow-alpha), transparent);
+      }
+    }
+  }
+}
+.crt-tv {
+  position: fixed;
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.crt-tv::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.6) 100%);
+  z-index: 2;
+}
+.crt-tv::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient( to bottom, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 1px, transparent 2px, transparent 5px );
+  z-index: 3;
+  pointer-events: none;
+}
+@keyframes flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.97;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.flicker {
+  animation: flicker 5s infinite alternate;
+}
+#tv-static-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 1;
+  pointer-events: none;
+}
+.crt-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  display: flex;
+  z-index: 2;
+}
+.crt-static {
+  animation: none !important;
+}
+.boot-line {
+  animation: cascadeLine 0.01s ease forwards;
+  animation-fill-mode: forwards;
+}
+@keyframes cascadeLine {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes dots {
+  0% {
+    content: '.';
+  }
+  33% {
+    content: '..';
+  }
+  66% {
+    content: '...';
+  }
+  100% {
+    content: '';
+  }
+}
+.dot-cycle::after {
+  content: '';
+  animation: dotdotdot 1.2s steps(4, end) infinite;
+}
+@keyframes dotdotdot {
+  0% {
+    content: '';
+  }
+  25% {
+    content: '.';
+  }
+  50% {
+    content: '..';
+  }
+  75% {
+    content: '...';
+  }
+  100% {
+    content: '';
+  }
+}
+.crt-effect {
+  filter: url(#crt-master-filter);
+  animation: crt-jitter 0.02s infinite;
+}
+@keyframes crt-jitter {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  25% {
+    transform: translate(-0.02px, 0.02px);
+  }
+  50% {
+    transform: translate(0.03px, -0.02px);
+  }
+  75% {
+    transform: translate(-0.02px, 0.01px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-Thin.ttf) format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-ThinItalic.ttf) format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-ExtraLight.ttf) format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-ExtraLightItalic.ttf) format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-Light.ttf) format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-LightItalic.ttf) format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-Regular.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-Italic.ttf) format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-Medium.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-MediumItalic.ttf) format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-SemiBold.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-SemiBoldItalic.ttf) format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-Bold.ttf) format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url(/assets/fonts/IBMPlexMono-BoldItalic.ttf) format('truetype');
+  font-weight: 700;
+  font-style: italic;
 }
 @property --tw-border-style {
   syntax: "*";
@@ -814,3 +1048,4 @@
     }
   }
 }
+

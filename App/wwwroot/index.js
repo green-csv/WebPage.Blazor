@@ -1,4 +1,4 @@
-﻿import './app.scss';
+﻿import './app.css';
 import './assets/icon-c3ref.jpg'
 
 import { initCRTStatic } from './js/crt-static-canvas.js';

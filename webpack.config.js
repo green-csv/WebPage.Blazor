@@ -15,28 +15,20 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.(css|s[ac]ss)$/i,
                 exclude: /node_modules/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
-                        loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                                includePaths: ['./App/wwwroot/scss', './App/wwwroot']
-                            }
-                        }
-                    },
-                    {
                         loader: 'postcss-loader',
-                        options: {
+                        /*options: {
                             postcssOptions: {
                                 plugins: [
                                     require('@tailwindcss/postcss'),
                                 ]
                             }
-                        }
+                        }*/
                     }
                 ]
             },
