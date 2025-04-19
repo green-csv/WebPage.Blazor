@@ -1,12 +1,16 @@
 ﻿const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 module.exports = {
     entry: './App/wwwroot/index.js',
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, 'wwwroot'),
+        publicPath: '/',
+        clean: true,
     },
     module: {
         rules: [
@@ -73,7 +77,17 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'app.css' // ⬅️ Final CSS output location
+            filename: 'app.[contenthash].css'
+        }),
+
+        new HtmlWebpackPlugin({
+            template: './App/wwwroot/index.template.html',
+            filename: 'index.html',
+            inject: 'body'
+        }),
+
+        new WebpackManifestPlugin({
+            fileName: 'asset-manifest.json',
         })
     ]
 };
