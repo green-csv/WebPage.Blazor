@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Blog\" />
-    <Folder Include="wwwroot\.idea\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EditorConfigFiles Remove="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
   </ItemGroup>
 
@@ -30,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\dist\assets\icon-c3ref.jpg" />
-    <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js" />
+    <AdditionalFiles Include="App\Log\[slug]\Page.razor" />
   </ItemGroup>
+  
 </Project>
