@@ -1,4 +1,22 @@
-export function initCRTStatic(canvasId = 'tv-static-canvas') {
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		__webpack_require__.p = "/";
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+
+;// ./App/wwwroot/assets/icon-c3ref.jpg
+const icon_c3ref_namespaceObject = __webpack_require__.p + "assets/icon-c3ref.jpg";
+;// ./App/wwwroot/favicon.png
+const favicon_namespaceObject = __webpack_require__.p + "favicon.png";
+;// ./App/wwwroot/js/crt-static-canvas.js
+function initCRTStatic(canvasId = 'tv-static-canvas') {
     const canvas = document.getElementById(canvasId);
     
     if (!canvas || canvas.offsetParent === null) return;
@@ -90,3 +108,90 @@ export function initCRTStatic(canvasId = 'tv-static-canvas') {
 
     animate(fps);
 }
+
+;// ./App/wwwroot/js/boot-sequence.js
+﻿function startBootSequence() {
+    
+    const lines = document.querySelectorAll('.boot-line');
+    
+    console.log('Boot sequence triggered. Found lines:', lines.length);
+    
+    lines.forEach((line, index) => {
+        
+        line.style.animation = `cascadeLine 0.01s ease forwards`;
+        
+        const text = line.dataset.line;
+        
+        if (!text) {
+            console.warn('Missing data-line attribute on boot-line element:', line);
+            return; // skip this broken child
+        }
+        
+        let i = 0;
+        
+        const typer = setInterval(() => {
+            line.textContent = text.slice(0, i) + "█";
+            i++;
+            if (i > text.length) {
+                clearInterval(typer);
+                line.textContent = text;
+            }
+        }, 30);
+        
+    });
+}
+;// ./App/wwwroot/js/boot-loader.js
+﻿function startBootLoader() {
+    const lines = document.querySelectorAll('.boot-line');
+    const bootLines = document.getElementById('boot-lines');
+
+    if ( !bootLines || lines.length === 0) {
+        console.warn("Boot loader skipped: Missing DOM elements.");
+        return;
+    }
+
+    let current = 0;
+
+    function typeNextLine() {
+        const el = lines[current];
+        const text = el.dataset.line;
+        if (!text) return;
+
+        let i = 0;
+        const typer = setInterval(() => {
+            el.textContent = text.slice(0, i) + "█";
+            i++;
+            if (i > text.length) {
+                clearInterval(typer);
+                el.textContent = text;
+                current++;
+                if (current < lines.length) {
+                    setTimeout(typeNextLine, 3);
+                }
+            }
+        }, 2);
+    }
+    
+    bootLines.classList.remove('hidden');
+    typeNextLine();
+}
+
+;// ./App/wwwroot/index.js
+﻿
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    initCRTStatic();
+    startBootLoader();
+
+    window.bootInterop = {
+        start: startBootSequence
+    };
+});
+/******/ })()
+;

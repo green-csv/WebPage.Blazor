@@ -1,43 +1,39 @@
 ﻿const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 
 module.exports = {
     entry: './App/wwwroot/index.js',
     output: {
-        filename: 'bundle.js',
+        filename: 'bundle.[contenthash].js',
         path: path.resolve(__dirname, 'wwwroot'),
+        publicPath: '/',
+        clean: true,
     },
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.(css|s[ac]ss)$/i,
                 exclude: /node_modules/,
                 use: [
                     MiniCssExtractPlugin.loader,
                     'css-loader',
                     {
-                        loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                                includePaths: ['./App/wwwroot/scss', './App/wwwroot']
-                            }
-                        }
-                    },
-                    {
                         loader: 'postcss-loader',
-                        options: {
+                        /*options: {
                             postcssOptions: {
                                 plugins: [
                                     require('@tailwindcss/postcss'),
                                 ]
                             }
-                        }
+                        }*/
                     }
                 ]
             },
             {
-                test: /\.(png|jpe?g|jpg|gif|svg|webp)$/i,
+                test: /\.(jpe?g|jpg|gif|svg|webp)$/i,
                 include: path.resolve(__dirname, 'App/wwwroot/assets'),
                 type: 'asset/resource',
                 generator: {
@@ -57,6 +53,13 @@ module.exports = {
                 ]
             },
             {
+                test: /\.png$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: '[name][ext]'
+                }
+            },
+            {
                 test: /\.(ttf|woff2?|otf|eot)$/i,
                 include: path.resolve(__dirname, 'App/wwwroot/assets/Fonts'),
                 type: 'asset/resource',
@@ -73,7 +76,17 @@ module.exports = {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'app.css' // ⬅️ Final CSS output location
+            filename: 'app.[contenthash].css'
+        }),
+
+        new HtmlWebpackPlugin({
+            template: './App/wwwroot/index.template.html',
+            filename: 'index.html',
+            inject: 'body'
+        }),
+
+        new WebpackManifestPlugin({
+            fileName: 'asset-manifest.json',
         })
     ]
 };

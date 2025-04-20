@@ -4,7 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <!--This was intende to work offline-->
+    <!--<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>-->
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,14 +13,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.14" PrivateAssets="all" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!--<ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Components\Blog\" />
-    <Folder Include="wwwroot\.idea\" />
-  </ItemGroup>
+  </ItemGroup>-->
 
   <ItemGroup>
     <EditorConfigFiles Remove="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
@@ -30,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\dist\assets\icon-c3ref.jpg" />
-    <_ContentIncludedByDefault Remove="wwwroot\dist\bundle.js" />
+    <AdditionalFiles Include="App\Log\[slug]\Page.razor" />
   </ItemGroup>
+  
 </Project>
