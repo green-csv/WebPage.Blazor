@@ -33,7 +33,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|jpe?g|jpg|gif|svg|webp)$/i,
+                test: /\.(jpe?g|jpg|gif|svg|webp)$/i,
                 include: path.resolve(__dirname, 'App/wwwroot/assets'),
                 type: 'asset/resource',
                 generator: {
@@ -51,6 +51,13 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: /\.png$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: '[name][ext]'
+                }
             },
             {
                 test: /\.(ttf|woff2?|otf|eot)$/i,

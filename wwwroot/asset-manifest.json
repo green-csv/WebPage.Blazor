@@ -1,6 +1,6 @@
 {
   "main.css": "/app.06032106581b75c02d92.css",
-  "main.js": "/bundle.b5d273d0212e856119f9.js",
+  "main.js": "/bundle.ebae0ca5c75845b207cf.js",
   "assets/fonts/IBMPlexMono-SemiBoldItalic.ttf": "/assets/fonts/IBMPlexMono-SemiBoldItalic.ttf",
   "assets/fonts/IBMPlexMono-ThinItalic.ttf": "/assets/fonts/IBMPlexMono-ThinItalic.ttf",
   "assets/fonts/IBMPlexMono-ExtraLightItalic.ttf": "/assets/fonts/IBMPlexMono-ExtraLightItalic.ttf",
@@ -16,5 +16,6 @@
   "assets/fonts/IBMPlexMono-Regular.ttf": "/assets/fonts/IBMPlexMono-Regular.ttf",
   "assets/fonts/IBMPlexMono-Light.ttf": "/assets/fonts/IBMPlexMono-Light.ttf",
   "assets/icon-c3ref.jpg": "/assets/icon-c3ref.jpg",
-  "index.html": "/index.html"
+  "index.html": "/index.html",
+  "favicon.png": "/favicon.png"
 }

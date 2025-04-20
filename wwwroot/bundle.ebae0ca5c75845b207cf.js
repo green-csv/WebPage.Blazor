@@ -30,13 +30,23 @@ eval("module.exports = __webpack_require__.p + \"assets/icon-c3ref.jpg\";\n\n//#
 
 /***/ }),
 
+/***/ "./App/wwwroot/favicon.png":
+/*!*********************************!*\
+  !*** ./App/wwwroot/favicon.png ***!
+  \*********************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+eval("module.exports = __webpack_require__.p + \"favicon.png\";\n\n//# sourceURL=webpack:///./App/wwwroot/favicon.png?");
+
+/***/ }),
+
 /***/ "./App/wwwroot/index.js":
 /*!******************************!*\
   !*** ./App/wwwroot/index.js ***!
   \******************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _app_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.css */ \"./App/wwwroot/app.css\");\n/* harmony import */ var _assets_icon_c3ref_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/icon-c3ref.jpg */ \"./App/wwwroot/assets/icon-c3ref.jpg\");\n/* harmony import */ var _js_crt_static_canvas_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./js/crt-static-canvas.js */ \"./App/wwwroot/js/crt-static-canvas.js\");\n/* harmony import */ var _js_boot_sequence_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/boot-sequence.js */ \"./App/wwwroot/js/boot-sequence.js\");\n/* harmony import */ var _js_boot_loader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/boot-loader */ \"./App/wwwroot/js/boot-loader.js\");\n﻿\r\n\r\n\r\n\r\n\r\n\r\n\r\ndocument.addEventListener('DOMContentLoaded', () => {\r\n    (0,_js_crt_static_canvas_js__WEBPACK_IMPORTED_MODULE_2__.initCRTStatic)();\r\n    (0,_js_boot_loader__WEBPACK_IMPORTED_MODULE_4__.startBootLoader)();\r\n\r\n    window.bootInterop = {\r\n        start: _js_boot_sequence_js__WEBPACK_IMPORTED_MODULE_3__.startBootSequence\r\n    };\r\n});\n\n//# sourceURL=webpack:///./App/wwwroot/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _app_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app.css */ \"./App/wwwroot/app.css\");\n/* harmony import */ var _assets_icon_c3ref_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/icon-c3ref.jpg */ \"./App/wwwroot/assets/icon-c3ref.jpg\");\n/* harmony import */ var _favicon_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./favicon.png */ \"./App/wwwroot/favicon.png\");\n/* harmony import */ var _js_crt_static_canvas_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./js/crt-static-canvas.js */ \"./App/wwwroot/js/crt-static-canvas.js\");\n/* harmony import */ var _js_boot_sequence_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./js/boot-sequence.js */ \"./App/wwwroot/js/boot-sequence.js\");\n/* harmony import */ var _js_boot_loader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./js/boot-loader */ \"./App/wwwroot/js/boot-loader.js\");\n﻿\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\ndocument.addEventListener('DOMContentLoaded', () => {\r\n    (0,_js_crt_static_canvas_js__WEBPACK_IMPORTED_MODULE_3__.initCRTStatic)();\r\n    (0,_js_boot_loader__WEBPACK_IMPORTED_MODULE_5__.startBootLoader)();\r\n\r\n    window.bootInterop = {\r\n        start: _js_boot_sequence_js__WEBPACK_IMPORTED_MODULE_4__.startBootSequence\r\n    };\r\n});\n\n//# sourceURL=webpack:///./App/wwwroot/index.js?");
 
 /***/ }),
 

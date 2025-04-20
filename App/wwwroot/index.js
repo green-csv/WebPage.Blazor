@@ -1,5 +1,6 @@
 ﻿import './app.css';
 import './assets/icon-c3ref.jpg'
+import './favicon.png'
 
 import { initCRTStatic } from './js/crt-static-canvas.js';
 import { startBootSequence } from './js/boot-sequence.js';
