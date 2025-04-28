@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <!--This was intende to work offline-->
+    <!--<ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>-->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.14" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+  </ItemGroup>
+
+  <!--<ItemGroup>
+    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>-->
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <AdditionalFiles Include="App\Log\{slug}\Page.razor" />
+    <AdditionalFiles Include="Components\Elements\Icons\AppleIcon.razor" />
+    <AdditionalFiles Include="Components\Elements\Icons\ArrowIcon.razor" />
+    <AdditionalFiles Include="Components\Elements\Icons\CaretLeft.razor" />
+    <AdditionalFiles Include="Components\Elements\Icons\LinkedinIcon.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="App\Layouts\CleanLayout.razor" />
+    <_ContentIncludedByDefault Remove="Components\Layouts\CleanLayout.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Components\Elements\" />
+    <Folder Include="Components\Shared\" />
+  </ItemGroup>
+  
+</Project>

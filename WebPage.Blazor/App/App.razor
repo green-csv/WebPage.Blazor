@@ -1,0 +1,24 @@
+﻿@using WebPage.Blazor.Components.Elements.Icons
+<Router AppAssembly="@typeof(App).Assembly">
+  <Found Context="routeData">
+    <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)"/>
+    @* <FocusOnNavigate RouteData="@routeData" Selector="h1" /> *@
+  </Found>
+  <NotFound>
+    <PageTitle>Not Signal</PageTitle>
+    <LayoutView Layout="@typeof(CleanLayout)">
+      <div
+        class="fixed inset-0 flex flex-col place-self-center text-2xl">
+        <div class="text-6xl">NO SIGNAL</div>
+        <small>Requested resource not found.
+          <a href="#"
+             class="flex  text-sky-100 items-center gap-2"
+             onclick="history.back()">
+            Return
+            <CaretLeft ClassCss="size-4"/>
+          </a>
+        </small>
+      </div>
+    </LayoutView>
+  </NotFound>
+</Router>
