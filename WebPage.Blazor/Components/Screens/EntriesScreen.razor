@@ -1,28 +1,11 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject WebPage.Blazor.Src.Services.LogPost.ILogPostService PostSvc
-@inject Src.Services.Metadata.IMetadataService MetaSvc
+
 
 @using System.Globalization
 @using WebPage.Blazor.Src.Domain.LogPosts
 @using WebPage.Blazor.Src.Infrastructure.Settings
 <PageTitle>Entries</PageTitle>
-
-<HeadContent>
-  @if (_meta is not null)
-  {
-    <meta name="description" content="@_meta.Description"/>
-    <meta name="author" content="@_meta.Author.Name"/>
-    <meta name="copyright" content="@_meta.License.Type"/>
-    <meta name="generator" content="Pages.Entries @_meta.Generated"/>
-
-    <!-- Open-Graph baseline for the blog section -->
-    <meta property="og:site_name" content="@_meta.Repo.Name"/>
-    <meta property="og:type" content="website"/>
-    <meta property="og:title" content="@_meta.Repo.Name"/>
-    <meta property="og:description" content="@_meta.Description"/>
-    <meta property="og:url" content="@_meta.Repo.Url"/>
-  }
-</HeadContent>
 
 @if (_posts == null)
 {
@@ -120,7 +103,7 @@ else
 
 @code {
   private IReadOnlyList<LogPost>? _posts;
-  private Src.Domain.Metadata.VaultMetadata? _meta;
+
   private List<string> AllTags { get; set; } = new();
   private HashSet<string> SelectedTags { get; set; } = new();
 
@@ -131,7 +114,6 @@ else
 
   protected override async Task OnInitializedAsync()
   {
-    _meta = await MetaSvc.GetAsync();
     _posts = (await PostSvc.GetAllPostsAsync())
       .OrderByDescending(p => p.Translations.Values.Max(t => t.Date))
       .ToList();

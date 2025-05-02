@@ -1,4 +1,22 @@
 ﻿@inherits WebPage.Blazor.Src.Infrastructure.Interop.BootInteropLayoutBase
+@inject Src.Services.Metadata.IMetadataService MetaSvc
+
+<HeadContent>
+  @if (_meta is not null)
+  {
+    <meta name="description" content="@_meta.Description"/>
+    <meta name="author" content="@_meta.Author.Name"/>
+    <meta name="copyright" content="@_meta.License.Type"/>
+    <meta name="generator" content="Pages.Entries @_meta.Generated"/>
+
+    <!-- Open-Graph baseline for the blog section -->
+    <meta property="og:site_name" content="@_meta.Repo.Name"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="@_meta.Repo.Name"/>
+    <meta property="og:description" content="@_meta.Description"/>
+    <meta property="og:url" content="@_meta.Repo.Url"/>
+  }
+</HeadContent>
 
 <svg class="hidden">
     <filter id="grainy">
@@ -133,3 +151,13 @@
 
 <!-- Footer -->
 <Footer></Footer>
+
+@code
+{
+  private Src.Domain.Metadata.VaultMetadata? _meta;
+
+  protected override async Task OnInitializedAsync()
+  {
+    _meta = await MetaSvc.GetAsync();
+  }
+}
