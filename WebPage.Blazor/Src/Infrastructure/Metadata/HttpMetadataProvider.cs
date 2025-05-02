@@ -4,7 +4,7 @@ using WebPage.Blazor.Src.Services.Metadata;
 
 namespace WebPage.Blazor.Src.Infrastructure.Metadata;
 
-public sealed class JsonMetadataProvider(HttpClient http) : IMetadataService
+public sealed class HttpMetadataProvider(HttpClient http) : IMetadataService
 {
     private VaultMetadata? _cache;
 
@@ -12,7 +12,7 @@ public sealed class JsonMetadataProvider(HttpClient http) : IMetadataService
     {
         if (_cache is not null) return _cache;
 
-        _cache = await http.GetFromJsonAsync<VaultMetadata>("posts-assets/metadata.json")
+        _cache = await http.GetFromJsonAsync<VaultMetadata>("posts-assets/metadata.config.json")
                  ?? throw new InvalidOperationException();
         
         return _cache;

@@ -28,7 +28,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <AdditionalFiles Include="App\Log\{slug}\Page.razor" />
+    <AdditionalFiles Include="App\Entry\{slug}\Page.razor" />
     <AdditionalFiles Include="Components\Elements\Icons\AppleIcon.razor" />
     <AdditionalFiles Include="Components\Elements\Icons\ArrowIcon.razor" />
     <AdditionalFiles Include="Components\Elements\Icons\CaretLeft.razor" />
@@ -42,7 +42,6 @@
 
   <ItemGroup>
     <Folder Include="Components\Elements\" />
-    <Folder Include="Components\Shared\" />
   </ItemGroup>
   
 </Project>

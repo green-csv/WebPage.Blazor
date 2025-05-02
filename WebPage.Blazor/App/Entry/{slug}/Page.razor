@@ -1,0 +1,128 @@
+﻿@page "/Entry/{Slug}"
+@using WebPage.Blazor.Src.Domain.Metadata
+
+@inject WebPage.Blazor.Src.Services.LogPost.ILogPostService PostSvc
+@inject Src.Services.Metadata.IMetadataService MetaSvc
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+
+@if (_meta is not null && _t is not null)
+{
+  <div class="text-right mb-4">
+    <a
+      href="@($"{_meta.Repo.Url}/-/blob/main/{_t.Filename.Replace(".html", ".md")}")"
+      target="_blank"
+      class="text-sm font-mono text-teal-400 hover:text-teal-200 underline">
+      View source on GitLab
+    </a>
+  </div>
+}
+@if (_t is not null)
+{
+  <PageTitle>@_t.Title</PageTitle>
+}
+
+@if (_error != null)
+{
+  <div class="flex items-center justify-center h-full w-full">
+    <p class="text-teal-300 font-mono text-lg">
+      No signal found <span class="animate-blink">_</span>
+    </p>
+  </div>
+}
+else if (_post == null)
+{
+  <div class="flex items-center justify-center h-full w-full">
+    <p class="text-teal-300 font-mono text-lg">
+      Getting entry <span class="dot-cycle">.</span>
+    </p>
+  </div>
+}
+else
+{
+  <div class="px-4 py-10 max-w-3xl mx-auto sm:px-6 sm:py-12 lg:max-w-4xl lg:py-16 lg:px-8 xl:max-w-6xl">
+    <article>
+      <!-- Title -->
+      <h1 class="font-mono text-4xl text-teal-300 mb-4">
+        @_t.Title
+      </h1>
+
+      <!-- Meta -->
+      <p class="font-mono text-gray-300 mb-6 flex flex-wrap gap-2">
+        <time datetime="@_t.Date:yyyy-MM-dd">
+          @_t.Date.ToString("MMM d, yyyy")
+        </time>
+        —
+        @foreach (var tag in _post.Tags)
+        {
+          <span class="bg-teal-800 text-teal-200 px-2 py-0.5 rounded">
+            @tag
+          </span>
+        }
+      </p>
+
+      <!-- Cover image -->
+      @if (!string.IsNullOrEmpty(_t.Cover))
+      {
+        <img
+          src="@($"{EntriesApiSettings.BaseUrl}{_t.Cover}")"
+          alt="Cover for @_t.Title"
+          class="w-full h-auto object-cover rounded-md mb-6 border border-gray-800" />
+      }
+
+      <!-- Body -->
+      @if (_content == null)
+      {
+        <p class="font-mono text-gray-400">Loading article<span class="dot-cycle">.</span></p>
+      }
+      else
+      {
+        <div class="prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl dark:prose-invert mx-auto">
+          @((MarkupString)_content)
+        </div>
+      }
+    </article>
+  </div>
+
+
+}
+
+@code {
+  [Parameter] public string Slug { get; set; } = string.Empty;
+
+  private VaultMetadata? _meta;
+  private LogPost? _post;
+  private LogPostTranslation _t = null!;
+  private string? _content;
+  private string? _error;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    _meta = await MetaSvc.GetAsync();
+    _post = await PostSvc.GetBySlugAsync(Slug);
+    if (_post == null)
+    {
+      _error = $"No entry found under '{Slug}'.";
+      return;
+    }
+
+    // pick translation
+    var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    if (!_post.Translations.TryGetValue(lang, out _t))
+      _t = _post.Translations.ContainsKey("en")
+        ? _post.Translations["en"]
+        : _post.Translations.Values.First();
+
+    // load HTML body
+    try
+    {
+      var url = $"{EntriesApiSettings.BaseUrl}{_t.Filename}";
+      _content = await new HttpClient().GetStringAsync(url);
+    }
+    catch
+    {
+      _error = "Article body could not be downloaded.";
+    }
+  }
+}
