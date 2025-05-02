@@ -6,5 +6,5 @@ public class LogPostTranslation
     public DateTime Date { get; set; }
     public string Filename { get; set; }
     public string Summary { get; set; }
-    public string Cover { get; set; }
+    public string? Cover { get; set; }
 }

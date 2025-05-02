@@ -116,3 +116,12 @@
   75% { transform: translate(-0.02px, 0.01px); }
   100% { transform: translate(0px, 0px); }
 }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+.blinking-cursor {
+  display: inline-block;
+  animation: blink 1s step-start infinite;
+}

@@ -1,0 +1,30 @@
+@inherits LayoutComponentBase
+<style>
+  /* Hide the static noise canvas when in reader mode */
+  #tv-static-canvas {
+    display: none !important;
+  }
+  /* Disable the CRT flicker effect */
+  .flicker {
+    animation: none !important;
+  }
+
+  /* Remove the convex glass overlay */
+  .crt-tv::before {
+    content: none !important;
+    background: none !important;
+  }
+
+  /* Remove the scanlines overlay */
+  .crt-tv::after {
+    content: none !important;
+    background: none !important;
+  }
+  </style>
+
+<main class="flex flex-col grow overflow-y-auto">
+  <div class="antialiased bg-gray-900">
+    @Body
+  </div>
+</main>
+

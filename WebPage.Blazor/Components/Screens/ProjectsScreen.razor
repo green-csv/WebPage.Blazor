@@ -1,7 +1,9 @@
 ﻿@using WebPage.Blazor.Src.Services.Projects
 @using WebPage.Blazor.Src.UI.ViewModels.Projects
+@using Microsoft.AspNetCore.Components.Web
 @inject IProjectService ProjectService
 
+<PageTitle>Projects</PageTitle>
 @{
   <div class="flex flex-col gap-4 md:px-8 px-2 pt-4">
   @for (var i = 0; i < _projects.Count; i++)
@@ -9,7 +11,7 @@
     var project = _projects[i];
 
     <div
-      class="group flex flex-col sm:flex-row gap-4 p-4 hover:bg-black/40
+      class="group flex flex-col sm:flex-row gap-4 p-4 hover:bg-gray-900
             hover:text-shadow-terminal-teal transition-all duration-200
             @(i == _projects.Count -1 ? "": "border-b border-teal-300")">
 

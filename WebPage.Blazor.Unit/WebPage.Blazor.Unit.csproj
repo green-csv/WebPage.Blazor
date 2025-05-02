@@ -22,4 +22,8 @@
         <Using Include="Xunit"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\WebPage.Blazor\WebPage.Blazor.csproj" />
+    </ItemGroup>
+
 </Project>
