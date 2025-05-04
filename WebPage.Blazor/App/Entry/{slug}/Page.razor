@@ -3,6 +3,9 @@
 
 @inject WebPage.Blazor.Src.Services.LogPost.ILogPostService PostSvc
 @inject Src.Services.Metadata.IMetadataService MetaSvc
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
 
@@ -44,12 +47,12 @@ else
   <div class="px-4 py-10 max-w-3xl mx-auto sm:px-6 sm:py-12 lg:max-w-4xl lg:py-16 lg:px-8 xl:max-w-6xl">
     <article>
       <!-- Title -->
-      <h1 class="font-mono text-4xl text-teal-300 mb-4">
+      <h1 class="flex-1 font-mono text-4xl text-teal-300">
         @_t.Title
       </h1>
 
       <!-- Meta -->
-      <p class="font-mono text-gray-300 mb-6 flex flex-wrap gap-2">
+      <p class="mt-2 font-mono text-gray-300 mb-6 flex flex-wrap gap-2">
         <time datetime="@_t.Date:yyyy-MM-dd">
           @_t.Date.ToString("MMM d, yyyy")
         </time>
@@ -59,6 +62,17 @@ else
           <span class="bg-teal-800 text-teal-200 px-2 py-0.5 rounded">
             @tag
           </span>
+        }
+        <button
+          class="flex items-center md:ml-4 px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-teal-900 gap-1"
+          @onclick="CopyShareLink">
+          Share
+          [@IconFactory.GetIcon("Chain45deg")]
+        </button>
+
+        @if (_isCopied)
+        {
+          <span class="md:ml-2 text-sm text-amber-400">Copied! Thanks for Sharing :)</span>
         }
       </p>
 
@@ -97,6 +111,8 @@ else
   private string? _content;
   private string? _error;
 
+  private bool _isCopied;
+
   protected override async Task OnParametersSetAsync()
   {
     _meta = await MetaSvc.GetAsync();
@@ -124,5 +140,27 @@ else
     {
       _error = "Article body could not be downloaded.";
     }
+  }
+
+  private async Task CopyShareLink()
+  {
+    if (string.IsNullOrEmpty(Slug))
+      return;
+
+    // build the share URL using query-param approach
+    var baseUri = Nav.BaseUri.TrimEnd('/');
+    var shareUrl = $"{baseUri}/?entry={Uri.EscapeDataString(Slug)}";
+
+    await JS.InvokeVoidAsync("navigator.clipboard.writeText", shareUrl);
+
+    _isCopied = true;
+    StateHasChanged();
+
+    _ = Task.Run(async () =>
+    {
+      await Task.Delay(2000);
+      _isCopied = false;
+      await InvokeAsync(StateHasChanged);
+    });
   }
 }
