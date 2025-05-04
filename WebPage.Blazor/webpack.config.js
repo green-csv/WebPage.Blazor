@@ -88,5 +88,8 @@ module.exports = {
             ]
         }),
     ],
+    watchOptions: {
+        ignored: /wwwroot([\\/].*)?/
+    },
     mode: 'production'
 };
