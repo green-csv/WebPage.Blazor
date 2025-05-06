@@ -6,14 +6,11 @@
 <PageTitle>Projects</PageTitle>
 @{
   <div class="flex flex-col gap-4 md:px-8 px-2 pt-4">
-  @for (var i = 0; i < _projects.Count; i++)
-  {
-    var project = _projects[i];
-
-    <div
-      class="group flex flex-col sm:flex-row gap-4 p-4 hover:bg-gray-900
-            hover:text-shadow-terminal-teal transition-all duration-200
-            @(i == _projects.Count -1 ? "": "border-b border-teal-300")">
+    @foreach (var project in _projects)
+    {
+      <div
+        class="group flex flex-wrap flex-1 flex-row md:flex-nowrap sm:flex-row gap-4 p-4 hover:bg-gray-900
+            hover:text-shadow-terminal-teal transition-all duration-200">
 
         <div
           class="flex justify-end sm:items-center sm:justify-center sm:w-48 sm:h-32 w-full h-24 rounded-sm overflow-hidden">
@@ -66,7 +63,7 @@
         </div>
       </div>
     }
-  </div>}
+</div>}
 
 @code {
   private List<ProjectViewModel> _projects = [];

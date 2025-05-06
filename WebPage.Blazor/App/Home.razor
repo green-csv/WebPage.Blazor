@@ -28,38 +28,22 @@
   </div>
 }
 
-<!-- Tabs (static) -->
-<div class="container mx-auto flex-none gap-4 mb-4 mt-0">
-  <button
-    class="cursor-pointe rborder border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Projects)"
-    @onclick="@(() => SelectTab(EnumTabs.Projects))">
-    <p class="text-shadow text-shadow-teal-400">Projects</p>
-  </button>
-  <button
-    class="cursor-pointer border border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Entries)"
-    @onclick="@(() => SelectTab(EnumTabs.Entries))">
-    <p class="text-shadow text-shadow-teal-400">Entries</p>
-  </button>
-</div>
-
 <!-- Fixed Page Layout -->
-<div class="container mx-auto flex grow mb-4 h-full overflow-y-auto md:shadow md:shadow-teal-200 md:border border-x border-teal-300">
+<div class="container mx-auto flex flex-col grow mb-4">
 
-  @switch (_activeTab)
-  {
-    case EnumTabs.Projects:
-      <ProjectsScreen />
-      break;
+  <div
+    class="cursor-pointe border border-teal-300 px-4 py-2 duration-200 text-teal-300 text-xl">
+    <h2 class="text-shadow text-shadow-teal-400">Projects</h2>
+  </div>
 
-    case EnumTabs.Entries:
-      <EntriesScreen />
-      break;
+  <ProjectsScreen/>
 
-    default:
-      <text>...</text>
-      break;
-  }
+  <div
+    class="cursor-pointer border border-teal-300 px-4 py-2 duration-200 text-teal-300 text-xl mt-4">
+    <h2 class="text-shadow text-shadow-teal-400">Entries</h2>
+  </div>
 
+  <EntriesScreen/>
 </div>
 
 @code {
@@ -76,16 +60,6 @@
         NavigationManager.NavigateTo($"/Entry/{Entry}");
       }
     }
-
-    private void SelectTab(EnumTabs tab)
-    {
-        _activeTab = tab;
-    }
-
-    private string GetTabClass(EnumTabs tab) =>
-        _activeTab == tab
-            ? " tab-active bg-teal-300 text-teal-950 shadow shadow-teal-200"
-            : " tab-inactive text-teal-300 hover:bg-teal-500";
 
     private enum EnumTabs
     {
