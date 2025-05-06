@@ -31,12 +31,12 @@
 <!-- Tabs (static) -->
 <div class="container mx-auto flex-none gap-4 mb-4 mt-0">
   <button
-    class="border border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Projects)"
+    class="cursor-pointe rborder border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Projects)"
     @onclick="@(() => SelectTab(EnumTabs.Projects))">
     <p class="text-shadow text-shadow-teal-400">Projects</p>
   </button>
   <button
-    class="border border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Entries)"
+    class="cursor-pointer border border-teal-300 px-4 py-2 transition-all duration-200 @GetTabClass(EnumTabs.Entries)"
     @onclick="@(() => SelectTab(EnumTabs.Entries))">
     <p class="text-shadow text-shadow-teal-400">Entries</p>
   </button>
