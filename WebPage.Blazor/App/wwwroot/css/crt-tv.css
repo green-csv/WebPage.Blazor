@@ -125,3 +125,15 @@
   display: inline-block;
   animation: blink 1s step-start infinite;
 }
+
+@layer base {
+  a,
+  button {
+    @apply cursor-pointer;
+  }
+  /* restore sensible cursor for disabled controls */
+  button:disabled,
+  a[disabled] {
+    @apply cursor-not-allowed;
+  }
+}
