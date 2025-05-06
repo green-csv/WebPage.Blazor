@@ -1,9 +1,7 @@
 ﻿@using WebPage.Blazor.Src.Services.Projects
 @using WebPage.Blazor.Src.UI.ViewModels.Projects
-@using Microsoft.AspNetCore.Components.Web
 @inject IProjectService ProjectService
 
-<PageTitle>Projects</PageTitle>
 @{
   <div class="flex flex-col gap-4 md:px-8 px-2 pt-4">
     @foreach (var project in _projects)
