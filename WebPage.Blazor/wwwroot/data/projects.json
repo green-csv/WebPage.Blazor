@@ -31,6 +31,11 @@
         "label": "AppStore",
         "url": "https://apps.apple.com/app/id1534245375",
         "icon": "Apple"
+      },
+      {
+        "label": "Web",
+        "url": "https://curvascolombianasdecrecimiento.co/home",
+        "icon": "Arrow"
       }
     ]
   }
