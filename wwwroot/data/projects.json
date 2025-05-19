@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Image To Base64 clipboard",
+    "description": "Adds to contextual menu encode to base 64 and set into the clipboard",
+    "createdAt": "2021-04-18",
+    "status": "Active",
+    "tags": ["Base64", "Utilities", "VsCode-Extension"],
+    "imagePath": "https://raw.githubusercontent.com/green-csv/img-contextual/master/images/encoder.png",
+    "links": [
+      {
+        "label": "Marketplace",
+        "url": "https://marketplace.visualstudio.com/items?itemName=green-csv.img-contextual",
+        "icon": "Arrow"
+      },
+      {
+        "label": "Github",
+        "url": "https://github.com/green-csv/img-contextual",
+        "icon": "Arrow"
+      }
+    ]
+  },
+  {
+    "name": "c3ref",
+    "description": "Aplicación colombiana desarrollada por la Asociación Colegio Colombiano de Endocrinología Pediátrica (ACCEP) para el cálculo y visualización gráfica de los Z score, para niños y jóvenes en las curvas colombianas de referencia en talla, peso e IMC.",
+    "createdAt": "2020-10-20",
+    "status": "Active",
+    "tags": ["Pediatric", "Health", "Colombia", "iOS", "Medical"],
+    "imagePath": "/assets/icon-c3ref.jpg",
+    "links": [
+      {
+        "label": "AppStore",
+        "url": "https://apps.apple.com/app/id1534245375",
+        "icon": "Apple"
+      },
+      {
+        "label": "Web",
+        "url": "https://curvascolombianasdecrecimiento.co/home",
+        "icon": "Arrow"
+      }
+    ]
+  }
+]
