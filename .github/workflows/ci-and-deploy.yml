@@ -4,8 +4,11 @@ name: Test & Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master     # change if your default branch is named differently
-
+      - master
+      
+permissions:
+  contents: write
+  
 env:
   PUBLISH_DIR: publish
 
@@ -19,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
@@ -35,7 +38,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: TestResults/test-results.trx
@@ -51,7 +54,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
@@ -63,7 +66,6 @@ jobs:
           touch ${{ env.PUBLISH_DIR }}/.nojekyll
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ env.PUBLISH_DIR }}
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:          
+          folder: ${{ env.PUBLISH_DIR }}                  
