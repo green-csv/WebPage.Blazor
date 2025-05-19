@@ -1,0 +1,69 @@
+# .github/workflows/ci-and-deploy.yml
+name: Test & Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master     # change if your default branch is named differently
+
+env:
+  PUBLISH_DIR: publish
+
+jobs:
+  test:
+    name: 🧪 Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Run tests
+        run: |
+          dotnet test WebPage.Blazor.Unit/WebPage.Blazor.Unit.csproj \
+            --configuration Release \
+            --logger "trx;LogFileName=test-results.trx" \
+            --results-directory ./TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: TestResults/test-results.trx
+
+  deploy:
+    name: 🚀 Publish to GitHub Pages
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish Blazor App
+        run: |
+          dotnet publish WebPage.Blazor/WebPage.Blazor.csproj \
+            --configuration Release \
+            --output ${{ env.PUBLISH_DIR }}          
+          touch ${{ env.PUBLISH_DIR }}/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.PUBLISH_DIR }}

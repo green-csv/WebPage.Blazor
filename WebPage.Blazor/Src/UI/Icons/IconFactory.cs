@@ -10,7 +10,9 @@ public static class IconFactory
         { "Apple", builder => { builder.OpenComponent(0, typeof(AppleIcon)); builder.CloseComponent(); } },
         { "LinkedIn", builder => { builder.OpenComponent(0, typeof(LinkedinIcon)); builder.CloseComponent(); } },
         { "CaretLeft", builder => { builder.OpenComponent(0, typeof(CaretLeft)); builder.CloseComponent(); } },
-        { "Arrow", builder => { builder.OpenComponent(0, typeof(ArrowIcon)); builder.CloseComponent(); } }
+        { "Arrow", builder => { builder.OpenComponent(0, typeof(ArrowIcon)); builder.CloseComponent(); } },
+        { "Chain45deg", builder => { builder.OpenComponent(0, typeof(Chain45deg)); builder.CloseComponent(); } }
+        
     };
 
     public static RenderFragment? GetIcon(string key)

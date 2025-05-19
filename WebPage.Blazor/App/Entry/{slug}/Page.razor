@@ -1,0 +1,166 @@
+﻿@page "/Entry/{Slug}"
+@using WebPage.Blazor.Src.Domain.Metadata
+
+@inject WebPage.Blazor.Src.Services.LogPost.ILogPostService PostSvc
+@inject Src.Services.Metadata.IMetadataService MetaSvc
+@inject NavigationManager Nav
+@inject IJSRuntime JS
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+
+
+@if (_meta is not null)
+{
+  <div class="text-right mb-4">
+    <a
+      href="@($"{_meta.Repo.Url}/-/blob/main/{_t.Filename.Replace(".html", ".md")}")"
+      target="_blank"
+      class="text-sm font-mono text-teal-400 hover:text-teal-200 underline">
+      View source on GitLab
+    </a>
+  </div>
+}
+@if (_t is not null)
+{
+  <PageTitle>@_t.Title</PageTitle>
+}
+
+@if (_error != null)
+{
+  <div class="flex items-center justify-center h-full w-full">
+    <p class="text-teal-300 font-mono text-lg">
+      No signal found <span class="animate-blink">_</span>
+    </p>
+  </div>
+}
+else if (_post == null)
+{
+  <div class="flex items-center justify-center h-full w-full">
+    <p class="text-teal-300 font-mono text-lg">
+      Getting entry <span class="dot-cycle">.</span>
+    </p>
+  </div>
+}
+else
+{
+  <div class="px-4 py-10 max-w-3xl mx-auto sm:px-6 sm:py-12 lg:max-w-4xl lg:py-16 lg:px-8 xl:max-w-6xl">
+    <article>
+      <!-- Title -->
+      <h1 class="flex-1 font-mono text-4xl text-teal-300">
+        @_t.Title
+      </h1>
+
+      <!-- Meta -->
+      <p class="mt-2 font-mono text-gray-300 mb-6 flex flex-wrap gap-2">
+        <time datetime="@_t.Date:yyyy-MM-dd">
+          @_t.Date.ToString("MMM d, yyyy")
+        </time>
+        —
+        @foreach (var tag in _post.Tags)
+        {
+          <span class="bg-teal-800 text-teal-200 px-2 py-0.5 rounded">
+            @tag
+          </span>
+        }
+        <button
+          class="flex items-center md:ml-4 px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-teal-900 gap-1"
+          @onclick="CopyShareLink">
+          Share
+          [@IconFactory.GetIcon("Chain45deg")]
+        </button>
+
+        @if (_isCopied)
+        {
+          <span class="md:ml-2 text-sm text-amber-400">Copied! Thanks for Sharing :)</span>
+        }
+      </p>
+
+      <!-- Cover image -->
+      @if (!string.IsNullOrEmpty(_t.Cover))
+      {
+        <img
+          src="@($"{EntriesApiSettings.BaseUrl}{_t.Cover}")"
+          alt="Cover for @_t.Title"
+          class="w-full h-auto object-cover rounded-md mb-6 border border-gray-800" />
+      }
+
+      <!-- Body -->
+      @if (_content == null)
+      {
+        <p class="font-mono text-gray-400">Loading article<span class="dot-cycle">.</span></p>
+      }
+      else
+      {
+        <div class="prose prose-sm sm:prose-base lg:prose-lg xl:prose-xl 2xl:prose-2xl dark:prose-invert mx-auto">
+          @((MarkupString)_content)
+        </div>
+      }
+    </article>
+  </div>
+
+
+}
+
+@code {
+  [Parameter] public string Slug { get; set; } = string.Empty;
+
+  private VaultMetadata? _meta;
+  private LogPost? _post;
+  private LogPostTranslation _t = null!;
+  private string? _content;
+  private string? _error;
+
+  private bool _isCopied;
+
+  protected override async Task OnParametersSetAsync()
+  {
+    _meta = await MetaSvc.GetAsync();
+    _post = await PostSvc.GetBySlugAsync(Slug);
+    if (_post == null)
+    {
+      _error = $"No entry found under '{Slug}'.";
+      return;
+    }
+
+    // pick translation
+    var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    if (!_post.Translations.TryGetValue(lang, out _t))
+      _t = _post.Translations.ContainsKey("en")
+        ? _post.Translations["en"]
+        : _post.Translations.Values.First();
+
+    // load HTML body
+    try
+    {
+      var url = $"{EntriesApiSettings.BaseUrl}{_t.Filename}";
+      _content = await new HttpClient().GetStringAsync(url);
+    }
+    catch
+    {
+      _error = "Article body could not be downloaded.";
+    }
+  }
+
+  private async Task CopyShareLink()
+  {
+    if (string.IsNullOrEmpty(Slug))
+      return;
+
+    // build the share URL using query-param approach
+    var baseUri = Nav.BaseUri.TrimEnd('/');
+    var shareUrl = $"{baseUri}/?entry={Uri.EscapeDataString(Slug)}";
+
+    await JS.InvokeVoidAsync("navigator.clipboard.writeText", shareUrl);
+
+    _isCopied = true;
+    StateHasChanged();
+
+    _ = Task.Run(async () =>
+    {
+      await Task.Delay(2000);
+      _isCopied = false;
+      await InvokeAsync(StateHasChanged);
+    });
+  }
+}

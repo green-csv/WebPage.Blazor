@@ -1,4 +1,8 @@
 {
+  "engines": {
+    "node": "22.13.1"
+  },
+  "engineStrict": true,
   "scripts": {
     "build": "webpack --mode production",
     "watch": "webpack  --mode production --watch"
@@ -6,6 +10,7 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.4",
     "@tailwindcss/postcss": "^4.1.4",
+    "@tailwindcss/typography": "^0.5.16",
     "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
     "css-minimizer-webpack-plugin": "^7.0.2",

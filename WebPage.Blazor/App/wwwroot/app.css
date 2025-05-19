@@ -1,8 +1,7 @@
 ﻿@import "tailwindcss";
-
 @import "./css/crt-tv.css";
 
-
+@plugin "@tailwindcss/typography";
 /* IBM Plex Mono Font Family — Full Weights + Italics */
 
 @font-face {

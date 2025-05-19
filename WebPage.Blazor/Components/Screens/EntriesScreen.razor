@@ -1,0 +1,192 @@
+
+
+@using System.Globalization
+@using WebPage.Blazor.Src.Domain.LogPosts
+@using WebPage.Blazor.Src.Infrastructure.Settings
+@using Microsoft.AspNetCore.Components.Routing
+@using Microsoft.JSInterop
+
+
+@inject WebPage.Blazor.Src.Services.LogPost.ILogPostService PostSvc
+@inject NavigationManager NavManager
+@inject IJSRuntime JS
+
+
+
+@if (_posts == null)
+{
+  <div class="flex items-center justify-center h-full w-full">
+    <p class="text-center text-gray-400 text-lg">
+      Scanning for entries <span class="dot-cycle">.</span>
+    </p>
+  </div>
+}
+else if (!_posts.Any())
+{
+  <div class="flex items-center justify-center h-full w-full">
+    <p class="text-center text-gray-400 text-lg">
+      No entries detected, Try Again
+      <span class="blinking-cursor">_</span>
+    </p>
+  </div>
+}
+else
+{
+  <div class="p-4">
+    <!-- 1) Tag Filter Bar -->
+    <div class="flex flex-wrap gap-2 mb-2">
+      <span class="px-2 py-1  text-white">
+        [Filters]
+      </span>
+      @foreach (var tag in AllTags)
+      {
+        var isSelected = SelectedTags.Contains(tag);
+        <button
+          class="
+            px-2 py-0.5 rounded font-mono cursor-pointer
+            transition-colors duration-150
+            @(isSelected
+              ? "bg-teal-800 text-teal-200"
+              : "bg-gray-800 text-gray-400 hover:bg-gray-700")
+          "
+          @onclick="() => ToggleTag(tag)">
+          @tag
+        </button>
+      }
+      @if (SelectedTags.Count > 0)
+      {
+        <button class="px-3 py-1 text-red-400 hover:text-red-600"
+                @onclick="ClearTags">
+          [Clear]
+        </button>
+      }
+    </div>
+
+    <!-- 2) Filtered Grid -->
+    <div class="grid grid-cols-1 gap-4">
+      @foreach (var (post, idx) in FilteredPosts.Select((p, i) => (p, i)))
+      {
+        var translation = PickTranslation(post);
+        <article class="rounded-lg overflow-hidden shadow-md bg-gray-900 border border-gray-900 hover:border-teal-600">
+          @if (!string.IsNullOrEmpty(translation.Cover))
+          {
+            <NavLink href=@($"/entry/{post.Slug}")>
+              <img
+                src="@($"{EntriesApiSettings.BaseUrl}{translation.Cover}")"
+                alt="Cover for @translation.Title"
+                class="w-full h-48 object-cover" />
+            </NavLink>
+          }
+
+          <div class="p-4">
+            <div class="flex items-center justify-between gap-2">
+              <NavLink href=@($"/entry/{post.Slug}")>
+                <h2 class="font-mono text-xl font-semibold text-teal-400 hover:text-teal-200 transition-colors">
+                  @translation.Title
+                </h2>
+              </NavLink>
+
+              <!-- Explicit button type + async lambda -->
+              <button type="button"
+                      class="flex items-center px-2 py-1 rounded bg-sky-100 hover:bg-gray-300 text-teal-800 gap-1"
+                      @onclick="async () => await CopyShareLink(post.Slug)">
+                Share
+              </button>
+            </div>
+
+            @if ((_lastCopiedSlug == post.Slug))
+            {
+              <span class="md:ml-2 text-sm text-amber-400">Copied! Thanks for Sharing :)</span>
+            }
+
+            <p class="text-gray-300 mt-2 line-clamp-3">
+              @translation.Summary
+            </p>
+
+            <p class="text-gray-400 text-sm mt-4 flex flex-wrap gap-1">
+              <time datetime="@translation.Date:yyyy-MM-dd">
+                @translation.Date.ToString("MMM d, yyyy")
+              </time>
+              •
+              @foreach (var tag in post.Tags)
+              {
+                <span class="bg-teal-800 text-teal-200 px-2 py-0.5 rounded text-xs">
+                  @tag
+                </span>
+              }
+            </p>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+}
+
+@code {
+  private IReadOnlyList<LogPost>? _posts;
+
+  private List<string> AllTags { get; set; } = new();
+  private HashSet<string> SelectedTags { get; set; } = new();
+  private bool _isCopied;
+  private string? _lastCopiedSlug;
+
+  private IEnumerable<LogPost> FilteredPosts =>
+    SelectedTags.Count == 0
+      ? _posts!
+      : _posts!.Where(p => SelectedTags.All(t => p.Tags.Contains(t)));
+
+  protected override async Task OnInitializedAsync()
+  {
+    _posts = (await PostSvc.GetAllPostsAsync())
+      .OrderByDescending(p => p.Translations.Values.Max(t => t.Date))
+      .ToList();
+
+    AllTags = _posts
+      .SelectMany(p => p.Tags)
+      .Distinct(StringComparer.OrdinalIgnoreCase)
+      .OrderBy(t => t)
+      .ToList();
+  }
+
+  void ToggleTag(string tag)
+  {
+    if (!SelectedTags.Add(tag))
+      SelectedTags.Remove(tag);
+  }
+
+  void ClearTags() => SelectedTags.Clear();
+
+  private static LogPostTranslation PickTranslation(LogPost post)
+  {
+    var lang = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+    return post.Translations.TryGetValue(lang, out var t)
+      ? t
+      : post.Translations.TryGetValue("en", out var en)
+        ? en
+        : post.Translations.Values.First();
+  }
+
+  private async Task CopyShareLink(string slug)
+  {
+    // Debug log to console
+    await JS.InvokeVoidAsync("console.log", "CopyShareLink fired for", slug);
+
+    var baseUri = NavManager.BaseUri.TrimEnd('/');
+    var shareUrl = $"{baseUri}/?entry={Uri.EscapeDataString(slug)}";
+    await JS.InvokeVoidAsync("navigator.clipboard.writeText", shareUrl);
+    _lastCopiedSlug = slug;
+    StateHasChanged();
+
+    // reset after 2 seconds
+    _ = Task.Run(async () =>
+    {
+      await Task.Delay(2000);
+      if (_lastCopiedSlug == slug)
+      {
+        _lastCopiedSlug = null;
+        await InvokeAsync(StateHasChanged);
+      }
+    });
+  }
+
+}
