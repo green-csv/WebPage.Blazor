@@ -18,140 +18,136 @@
 </HeadContent>
 
 <svg class="hidden">
-    <filter id="grainy">
-        <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.2"
-                numOctaves="2"
-                result="noise">
-            <animate
-                    attributeName="baseFrequency"
-                    values="0.5;0.65;0.62;0.63;0.5"
-                    dur="0.2s"
-                    repeatCount="indefinite"/>
-        </feTurbulence>
+  <filter id="grainy">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="0.2"
+      numOctaves="2"
+      result="noise">
+      <animate
+        attributeName="baseFrequency"
+        values="0.5;0.65;0.62;0.63;0.5"
+        dur="0.2s"
+        repeatCount="indefinite"/>
+    </feTurbulence>
 
-        <feColorMatrix
-                in="noise"
-                type="matrix"
-                values="1 0 0 0 0
+    <feColorMatrix
+      in="noise"
+      type="matrix"
+      values="1 0 0 0 0
               0 1 0 0 0
               0 0 1 0 0
               0 0 0 0.1 0"
-                result="lowOpacityNoise"/>
+      result="lowOpacityNoise"/>
 
-        <feBlend
-                in="SourceGraphic"
-                in2="lowOpacityNoise"
-                mode="screen"/>
-    </filter>
+    <feBlend
+      in="SourceGraphic"
+      in2="lowOpacityNoise"
+      mode="screen"/>
+  </filter>
 
-    <!-- Chromatic Aberration Filter -->
-    <filter id="chromatic-aberration">
-        <feOffset in="SourceGraphic" dx="-1" dy="0" result="redShift"/>
-        <feComponentTransfer in="redShift" result="redOnly">
-            <feFuncR type="identity"/>
-            <feFuncG type="discrete" tableValues="0"/>
-            <feFuncB type="discrete" tableValues="0"/>
-        </feComponentTransfer>
+  <!-- Chromatic Aberration Filter -->
+  <filter id="chromatic-aberration">
+    <feOffset in="SourceGraphic" dx="-1" dy="0" result="redShift"/>
+    <feComponentTransfer in="redShift" result="redOnly">
+      <feFuncR type="identity"/>
+      <feFuncG type="discrete" tableValues="0"/>
+      <feFuncB type="discrete" tableValues="0"/>
+    </feComponentTransfer>
 
-        <feOffset in="SourceGraphic" dx="1" dy="0" result="blueShift"/>
-        <feComponentTransfer in="blueShift" result="blueOnly">
-            <feFuncR type="discrete" tableValues="0"/>
-            <feFuncG type="discrete" tableValues="0"/>
-            <feFuncB type="identity"/>
-        </feComponentTransfer>
+    <feOffset in="SourceGraphic" dx="1" dy="0" result="blueShift"/>
+    <feComponentTransfer in="blueShift" result="blueOnly">
+      <feFuncR type="discrete" tableValues="0"/>
+      <feFuncG type="discrete" tableValues="0"/>
+      <feFuncB type="identity"/>
+    </feComponentTransfer>
 
-        <feComponentTransfer in="SourceGraphic" result="greenOnly">
-            <feFuncR type="discrete" tableValues="0"/>
-            <feFuncG type="identity"/>
-            <feFuncB type="discrete" tableValues="0"/>
-        </feComponentTransfer>
+    <feComponentTransfer in="SourceGraphic" result="greenOnly">
+      <feFuncR type="discrete" tableValues="0"/>
+      <feFuncG type="identity"/>
+      <feFuncB type="discrete" tableValues="0"/>
+    </feComponentTransfer>
 
-        <feBlend in="redOnly" in2="greenOnly" mode="screen" result="rg"/>
-        <feBlend in="rg" in2="blueOnly" mode="screen"/>
-    </filter>
+    <feBlend in="redOnly" in2="greenOnly" mode="screen" result="rg"/>
+    <feBlend in="rg" in2="blueOnly" mode="screen"/>
+  </filter>
 
-    <!-- Combined CRT Master Filter -->
-    <filter id="crt-master-filter">
-        <!-- Grain Generation -->
-        <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="2" result="noise">
-            <animate attributeName="baseFrequency" values="0.8;0.85;0.82;0.83;0.8" dur="0.2s" repeatCount="indefinite"/>
-        </feTurbulence>
-        <feColorMatrix
-                in="noise"
-                type="matrix"
-                values="
+  <!-- Combined CRT Master Filter -->
+  <filter id="crt-master-filter">
+    <!-- Grain Generation -->
+    <feTurbulence type="fractalNoise" baseFrequency="0.2" numOctaves="2" result="noise">
+      <animate attributeName="baseFrequency" values="0.8;0.85;0.82;0.83;0.8" dur="0.2s" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feColorMatrix
+      in="noise"
+      type="matrix"
+      values="
                 1 0 0 0 0
                 0 1 0 0 0
                 0 0 1 0 0
                 0 0 0 0.2 0"
-                result="grain"/>
+      result="grain"/>
 
-        <!-- Chromatic Channels -->
-        <feOffset in="SourceGraphic" dx="-1" dy="0" result="redShift"/>
-        <feComponentTransfer in="redShift" result="redOnly">
-            <feFuncR type="identity"/>
-            <feFuncG type="discrete" tableValues="0"/>
-            <feFuncB type="discrete" tableValues="0"/>
-        </feComponentTransfer>
+    <!-- Chromatic Channels -->
+    <feOffset in="SourceGraphic" dx="-1" dy="0" result="redShift"/>
+    <feComponentTransfer in="redShift" result="redOnly">
+      <feFuncR type="identity"/>
+      <feFuncG type="discrete" tableValues="0"/>
+      <feFuncB type="discrete" tableValues="0"/>
+    </feComponentTransfer>
 
-        <feOffset in="SourceGraphic" dx="1" dy="0" result="blueShift"/>
-        <feComponentTransfer in="blueShift" result="blueOnly">
-            <feFuncR type="discrete" tableValues="0"/>
-            <feFuncG type="discrete" tableValues="0"/>
-            <feFuncB type="identity"/>
-        </feComponentTransfer>
+    <feOffset in="SourceGraphic" dx="1" dy="0" result="blueShift"/>
+    <feComponentTransfer in="blueShift" result="blueOnly">
+      <feFuncR type="discrete" tableValues="0"/>
+      <feFuncG type="discrete" tableValues="0"/>
+      <feFuncB type="identity"/>
+    </feComponentTransfer>
 
-        <feComponentTransfer in="SourceGraphic" result="greenOnly">
-            <feFuncR type="discrete" tableValues="0"/>
-            <feFuncG type="identity"/>
-            <feFuncB type="discrete" tableValues="0"/>
-        </feComponentTransfer>
+    <feComponentTransfer in="SourceGraphic" result="greenOnly">
+      <feFuncR type="discrete" tableValues="0"/>
+      <feFuncG type="identity"/>
+      <feFuncB type="discrete" tableValues="0"/>
+    </feComponentTransfer>
 
-        <!-- Blend Chromatic Channels -->
-        <feBlend in="redOnly" in2="greenOnly" mode="screen" result="rg"/>
-        <feBlend in="rg" in2="blueOnly" mode="screen" result="rgb"/>
+    <!-- Blend Chromatic Channels -->
+    <feBlend in="redOnly" in2="greenOnly" mode="screen" result="rg"/>
+    <feBlend in="rg" in2="blueOnly" mode="screen" result="rgb"/>
 
-        <!-- Combine with Grain -->
-        <feBlend in="rgb" in2="grain" mode="screen"/>
-    </filter>
+    <!-- Combine with Grain -->
+    <feBlend in="rgb" in2="grain" mode="screen"/>
+  </filter>
 </svg>
 
-<div class="crt-effect">
+<div class="crt-effect overflow-y-auto">
   <!-- Header -->
   <Header></Header>
-</div>
 
+  <main class="flex grow flex-col">
 
+    <ErrorBoundary Context="ex">
+      <ChildContent>
+        @Body
+      </ChildContent>
+      <ErrorContent>
 
-<main class="flex grow flex-col overflow-y-auto crt-effect">
+        <!-- Bottom error UI -->
+        <div id="blazor-error-ui" class="flex justify-center">
 
-  <ErrorBoundary Context="ex">
-    <ChildContent>
-      @Body
-    </ChildContent>
-    <ErrorContent>
-
-      <!-- Bottom error UI -->
-      <div id="blazor-error-ui" class="flex justify-center">
-
-        <div class="absolute bottom-0 flex items-center text-white">
-          <span class="text-5xl">[</span>
-          <div class="py-6">
-            @ex.Message
+          <div class="absolute bottom-0 flex items-center text-white">
+            <span class="text-5xl">[</span>
+            <div class="py-6">
+              @ex.Message
+            </div>
+            <span class="text-5xl">]</span>
           </div>
-          <span class="text-5xl">]</span>
+
         </div>
 
-      </div>
+      </ErrorContent>
+    </ErrorBoundary>
 
-    </ErrorContent>
-  </ErrorBoundary>
+  </main>
 
-</main>
-
-<div class="crt-effect">
   <!-- Footer -->
   <Footer></Footer>
 </div>
