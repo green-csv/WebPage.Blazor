@@ -118,39 +118,41 @@
   </filter>
 </svg>
 
-<div class="crt-effect overflow-y-auto">
-  <!-- Header -->
-  <Header></Header>
+@*<div class="md:crt-effect overflow-y-auto">
 
-  <main class="flex grow flex-col">
+</div>*@
 
-    <ErrorBoundary Context="ex">
-      <ChildContent>
-        @Body
-      </ChildContent>
-      <ErrorContent>
+<!-- Header -->
+<Header></Header>
 
-        <!-- Bottom error UI -->
-        <div id="blazor-error-ui" class="flex justify-center">
+<main class="flex grow flex-col overflow-y-auto">
 
-          <div class="absolute bottom-0 flex items-center text-white">
-            <span class="text-5xl">[</span>
-            <div class="py-6">
-              @ex.Message
-            </div>
-            <span class="text-5xl">]</span>
+  <ErrorBoundary Context="ex">
+    <ChildContent>
+      @Body
+    </ChildContent>
+    <ErrorContent>
+
+      <!-- Bottom error UI -->
+      <div id="blazor-error-ui" class="flex justify-center">
+
+        <div class="absolute bottom-0 flex items-center text-white">
+          <span class="text-5xl">[</span>
+          <div class="py-6">
+            @ex.Message
           </div>
-
+          <span class="text-5xl">]</span>
         </div>
 
-      </ErrorContent>
-    </ErrorBoundary>
+      </div>
 
-  </main>
+    </ErrorContent>
+  </ErrorBoundary>
 
-  <!-- Footer -->
-  <Footer></Footer>
-</div>
+</main>
+
+<!-- Footer -->
+<Footer></Footer>
 
 
 @code
