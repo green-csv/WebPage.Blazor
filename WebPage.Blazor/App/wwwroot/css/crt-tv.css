@@ -109,6 +109,10 @@
   animation:crt-jitter 0.02s infinite;
 }
 
+.crt-effect * {
+  pointer-events: auto;
+}
+
 @keyframes crt-jitter {
   0% { transform: translate(0px, 0px); }
   25% { transform: translate(-0.02px, 0.02px); }
