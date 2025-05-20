@@ -16,7 +16,9 @@
   "assets/fonts/IBMPlexMono-Regular.ttf": "/assets/fonts/IBMPlexMono-Regular.ttf",
   "assets/fonts/IBMPlexMono-Light.ttf": "/assets/fonts/IBMPlexMono-Light.ttf",
   "assets/icon-c3ref.jpg": "/assets/icon-c3ref.jpg",
+  "404.html": "/404.html",
   "index.html": "/index.html",
   "data/projects.json": "/data/projects.json",
-  "favicon.png": "/favicon.png"
+  "favicon.png": "/favicon.png",
+  ".nojekyll": "/.nojekyll"
 }

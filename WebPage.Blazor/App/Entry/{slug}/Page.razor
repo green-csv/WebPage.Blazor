@@ -12,15 +12,26 @@
 
 @if (_t is not null)
 {
+
   <PageTitle>@_t.Title</PageTitle>
-  <HeadContent>
-    @{
-      var baseUri = Nav.BaseUri.TrimEnd('/');
-      var shareUrl = $"{baseUri}/?entry={Uri.EscapeDataString(Slug)}";
-    }
+
+  var baseUri = Nav.BaseUri.TrimEnd('/');
+  var shareUrl = $"{baseUri}/?entry={Uri.EscapeDataString(Slug)}";
+
+
+  <HeadOutlet>
     <meta name="giscus:backlink" content="@(shareUrl)">
     <meta property="og:title" content="@_t.Title">
-  </HeadContent>
+  </HeadOutlet>
+
+
+  <head>
+
+    <title>@_t.Title</title>
+    <meta name="giscus:backlink" content="@(shareUrl)">
+    <meta property="og:title" content="@_t.Title">
+  </head>
+
 }
 
 @if (_meta is not null)

@@ -78,13 +78,18 @@ module.exports = {
             filename: 'index.html',
             inject: 'body'
         }),
-
+        new HtmlWebpackPlugin({
+            template: './App/wwwroot/index.template.html',
+            filename: '404.html',
+            inject: 'body'
+        }),
         new WebpackManifestPlugin({
             fileName: 'asset-manifest.json',
         }),
         new CopyWebpackPlugin({
             patterns: [
-                { from: './App/wwwroot/data/*.json', to: 'data/[name][ext]' }
+                { from: './App/wwwroot/data/*.json', to: 'data/[name][ext]' },
+                { from: './App/wwwroot/.nojekyll', to: '[name][ext]' }
             ]
         }),
     ],
