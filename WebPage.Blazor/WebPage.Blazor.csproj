@@ -25,6 +25,7 @@
   <ItemGroup>
     <None Include="C:\Repos\GreenCsv\Portfolio.Blazor\WebPage.Blazor\.editorconfig" />
     <None Remove=".gitignore" />
+    <None Include="wwwroot\.nojekyll" />
   </ItemGroup>
   
   <ItemGroup>
