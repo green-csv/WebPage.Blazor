@@ -3,7 +3,16 @@
     "node": "22.13.1"
   },
   "engineStrict": true,
+  "reactSnap": {
+    "source": "Prerenderer/wwwroot",
+    "minifyHtml": {
+      "collapseWhitespace": true,
+      "removeComments": true
+    },
+    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"]
+  },
   "scripts": {
+    "postbuild": "react-snap",
     "build": "webpack --mode production",
     "watch": "webpack  --mode production --watch"
   },
@@ -19,6 +28,7 @@
     "mini-css-extract-plugin": "^2.9.2",
     "postcss": "^8.5.3",
     "postcss-loader": "^8.1.1",
+    "react-snap": "^1.23.0",
     "sass": "^1.86.3",
     "sass-loader": "^16.0.5",
     "tailwindcss": "^4.1.4",

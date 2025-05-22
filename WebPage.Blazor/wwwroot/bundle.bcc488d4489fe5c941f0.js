@@ -15,6 +15,8 @@
 const icon_c3ref_namespaceObject = __webpack_require__.p + "assets/icon-c3ref.jpg";
 ;// ./App/wwwroot/favicon.png
 const favicon_namespaceObject = __webpack_require__.p + "favicon.png";
+;// ./App/wwwroot/image.png
+const image_namespaceObject = __webpack_require__.p + "image.png";
 ;// ./App/wwwroot/js/crt-static-canvas.js
 function initCRTStatic(canvasId = 'tv-static-canvas') {
     const canvas = document.getElementById(canvasId);
@@ -178,6 +180,7 @@ function initCRTStatic(canvasId = 'tv-static-canvas') {
 
 ;// ./App/wwwroot/index.js
 ﻿
+
 
 
 
