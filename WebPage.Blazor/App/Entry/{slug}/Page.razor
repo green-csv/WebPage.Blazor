@@ -6,11 +6,16 @@
 @inject NavigationManager Nav
 @inject IJSRuntime JS
 
+<PageTitle>@Slug.Replace('-',' ')</PageTitle>
+<HeadContent>
+  <meta property="og:image" content="/image.png" />
+  <link rel="icon" type="image/png" href="/image.png" />
+  <meta property="og:title" content="@Slug.Replace('-',' ')">
+</HeadContent>
+
+
 @if (_t is not null)
 {
-
-  <PageTitle>@_t.Title</PageTitle>
-
   var baseUri = Nav.BaseUri.TrimEnd('/');
   var shareUrl = $"{baseUri}/?entry={Uri.EscapeDataString(Slug)}";
 
@@ -22,7 +27,6 @@
 
 
   <head>
-
     <title>@_t.Title</title>
     <meta name="giscus:backlink" content="@(shareUrl)">
     <meta property="og:title" content="@_t.Title">
